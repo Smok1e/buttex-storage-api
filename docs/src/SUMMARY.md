@@ -1,8 +1,10 @@
 # Buttex Storage API
 
 - [Response structure](response-structure.md)
-
-- [API Methods](methods.md)
+- [Users](users.md)
+    - [Authentication](users/authentication.md)
+    - [Permission system](users/permission-system.md)
+- [API methods](methods.md)
     - [Storage methods](methods/storage.md)
         - [create_file](methods/storage/create_file.md)
         - [create_directory](methods/storage/create_directory.md)

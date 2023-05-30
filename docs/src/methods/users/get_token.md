@@ -6,10 +6,10 @@ Method: **GET**\
 Access level: **ANY**
 
 ## Query
-| Parameter | Type   | Required | Description |
-|-----------|--------|----------|-------------|
-| user_name | String | Yes      | Username    |
-| password  | String | Yes      | Password    |
+| Parameter      | Type   | Required | Description |
+|----------------|--------|----------|-------------|
+| user_name      | String | Yes      | Username    |
+| user_password  | String | Yes      | Password    |
 
 ## Returns
 | Value   | Type   | Description                    |

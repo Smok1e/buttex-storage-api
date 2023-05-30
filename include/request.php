@@ -94,15 +94,15 @@ class Request {
                 self::query_param("token")
             );
 
-            if (!$user)
+            if ($user)
+            {
+                self::$user_id = $user["id"];
+                self::$token = $user["token"];
+                self::$access_level = $user["access_level"];
+            }
+            
+            else if ($level > AccessLevel::ANY)
                 Response::error("wrong token", ResponseCode::UNAUTHORIZED);
-
-            if ($user["access_level"] < $level)
-                Response::error("access denied", ResponseCode::FORBIDDEN);
-
-            self::$user_id = $user["id"];
-            self::$token = $user["token"];
-            self::$access_level = $user["access_level"];
         }
 
         if (self::$access_level < $level)

@@ -18,5 +18,4 @@ Access level: **ANY**
 
 ## Remarks
 If *parent_directory_id* parameter is passed, then the given path will be
-considered as relative to this directory;\
-Otherwise, the path will be considered as absolute
+considered as relative to this directory. Otherwise, the path will be considered as absolute

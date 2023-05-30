@@ -6,4 +6,4 @@ src = "src"
 title = "Buttex Storage API"
 
 [output.html]
-additional-css = ["styles/table.css"]
+additional-css = ["styles/style.css"]
