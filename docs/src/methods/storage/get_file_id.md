@@ -1,7 +1,7 @@
 # get_file_id
 Returns file id by the given path
 
-URL: **https://storage.buttex.ru/api/storage/get_file_id** \
+URL: `https://storage.buttex.ru/api/storage/get_file_id`\
 Method: **GET**\
 Access level: **ANY**
 

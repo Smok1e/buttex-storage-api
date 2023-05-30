@@ -14,7 +14,8 @@ class Filesystem {
     // Create new filesystem entry in database
     public static function create_entry(string $name, int $user_id, ?int $parent_directory_id = null, ?int $hidden = 0) {
         return Database::execute("
-                INSERT INTO filesystem_entries(name, directory_id, user_id, hidden)
+                INSERT INTO 
+                    filesystem_entries(name, directory_id, user_id, hidden)
                 VALUES(?, ?, ?, ?)
             ",
             "siii",
@@ -27,12 +28,20 @@ class Filesystem {
 
     // Create new file in database
     public static function create_file(int $filesystem_entry_id) {
-        return Database::execute("INSERT INTO files(filesystem_entry_id) VALUES(?)", "i", $filesystem_entry_id);
+        return Database::execute(
+            "INSERT INTO files(filesystem_entry_id) VALUES(?)", 
+            "i", 
+            $filesystem_entry_id
+        );
     }
 
     // Create new directory in database
     public static function cretate_directory(int $filesystem_entry_id) {
-        return Database::execute("INSERT INTO directories(filesystem_entry_id) VALUES(?)", "i", $filesystem_entry_id);
+        return Database::execute(
+            "INSERT INTO directories(filesystem_entry_id) VALUES(?)", 
+            "i", 
+            $filesystem_entry_id
+        );
     }
 
     // Check if or directory exists under specified directory by name
@@ -40,8 +49,9 @@ class Filesystem {
         return Database::get_first_row("
                 SELECT id 
                 FROM filesystem_entries
-                WHERE " . self::build_dir_condition($parent_directory_id) . " 
-                AND name = ?
+                WHERE
+                    " . self::build_dir_condition($parent_directory_id) . " 
+                    AND name = ?
             ",
             "s",
             $name
@@ -49,14 +59,88 @@ class Filesystem {
     }
 
     // Delete filesystem entry
-    public static function delete_entry(int $filesystem_entry_id, ?int $parent_directory_id = null) {
-        Database::execute("
-                DELETE FROM filesystem_entries 
-                WHERE " . self::build_dir_condition($parent_directory_id) . "
-                AND id = ?
-            ",
+    public static function delete_entry(int $filesystem_entry_id) {
+        Database::execute(
+            "DELETE FROM filesystem_entries WHERE id = ?",
             "i",
             $filesystem_entry_id
+        );
+    }
+
+    // Get real file path by id
+    public static function get_real_path(int $file_id) {
+        return Config::STORAGE_DATA_DIR . $file_id;
+    }
+
+    // Delete file (both database and physically)
+    public static function delete_file(int $file_id) {
+        Database::execute("
+                DELETE 
+                    filesystem_entries
+                FROM 
+                    filesystem_entries
+                    LEFT JOIN files
+                    ON files.filesystem_entry_id = filesystem_entries.id
+                WHERE
+                    files.id = ?
+            ",
+            "i",
+            $file_id
+        );
+
+        unlink(self::get_real_path($file_id));
+    }
+
+    // Delete directory and all it's content recursively
+    public static function delete_directory(int $directory_id) {
+        $files = Database::get_table("
+                SELECT 
+                    files.id as `id`
+                FROM
+                    files
+                    LEFT JOIN filesystem_entries
+                    ON filesystem_entries.id = files.filesystem_entry_id
+                WHERE
+                    filesystem_entries.directory_id = ?
+            ",
+            "i",
+            $directory_id
+        );
+
+        $directories = Database::get_table("
+                SELECT 
+                    directories.id as `id`
+                FROM
+                    directories
+                    LEFT JOIN filesystem_entries
+                    ON filesystem_entries.id = directories.filesystem_entry_id
+                WHERE
+                    filesystem_entries.directory_id = ?
+            ",
+            "i",
+            $directory_id
+        );
+
+        foreach ($files as $file) {
+            Filesystem::delete_file($file["id"]);
+        }
+
+        foreach ($directories as $directory) {
+            self::delete_directory($directory["id"]);
+        }
+
+        Database::execute("
+                DELETE 
+                    filesystem_entries
+                FROM
+                    directories
+                    LEFT JOIN filesystem_entries 
+                    ON filesystem_entries.id = directories.filesystem_entry_id
+                WHERE
+                    directories.id = ?
+            ",
+            "i",
+            $directory_id
         );
     }
 
@@ -68,12 +152,15 @@ class Filesystem {
                 continue;
 
             $parent_directory_id = Database::get_first_cell("
-                    SELECT directories.id
-                    FROM directories
+                    SELECT 
+                        directories.id
+                    FROM 
+                        directories
                         LEFT JOIN filesystem_entries
                         ON filesystem_entries.id = directories.filesystem_entry_id
-                    WHERE " . self::build_dir_condition($parent_directory_id) . "
-                    AND filesystem_entries.name = ?
+                    WHERE 
+                        " . self::build_dir_condition($parent_directory_id) . "
+                        AND filesystem_entries.name = ?
                 ",
                 "s",
                 $directory_name
@@ -95,11 +182,13 @@ class Filesystem {
 
         return Database::get_first_cell("
                 SELECT files.id
-                FROM files
+                FROM 
+                    files
                     LEFT JOIN filesystem_entries
                     ON filesystem_entries.id = files.filesystem_entry_id
-                WHERE " . self::build_dir_condition($parent_directory_id) ."
-                AND filesystem_entries.name = ?
+                WHERE
+                    " . self::build_dir_condition($parent_directory_id) ."
+                    AND filesystem_entries.name = ?
             ",
             "s",
             $info["basename"]
@@ -146,7 +235,7 @@ class Filesystem {
                     files
                     LEFT JOIN filesystem_entries
                     ON filesystem_entries.id = files.filesystem_entry_id
-                WHERE
+                WHERE 
                     files.id = ?
             ",
             "i",
@@ -160,6 +249,23 @@ class Filesystem {
             return $file["name"];
 
         return self::resolve_directory_id($file["directory_id"]) . "/" . $file["name"];
+    }
+
+    // Get directory owner id
+    public static function get_directory_owner(int $directory_id): ?int {
+        return Database::get_first_cell("
+                SELECT 
+                    filesystem_entries.user_id as `user_id`
+                FROM 
+                    directories
+                    LEFT JOIN filesystem_entries
+                    ON filesystem_entries.id = directories.filesystem_entry_id
+                WHERE
+                    directories.id = ?
+            ",
+            "i",
+            $directory_id
+        );
     }
 }
 //------------------------------

@@ -1,7 +1,7 @@
 # get_token
 Returns user's access token by given *username* and *password*
 
-URL: **https://storage.buttex.ru/api/users/get_token**\
+URL: `https://storage.buttex.ru/api/users/get_token`\
 Method: **GET**\
 Access level: **ANY**
 

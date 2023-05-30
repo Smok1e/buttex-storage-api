@@ -11,6 +11,9 @@ $request_directory_name      = basename(Request::query_param("directory_name"));
 $request_parent_directory_id = Request::query_int_or_null("parent_directory_id");
 $request_hidden              = Request::query_int("hidden", 0);
 
+if ($request_parent_directory_id !== null)
+    Request::check_directory_ownership($request_parent_directory_id);
+
 if (Filesystem::exists($request_directory_name, $request_parent_directory_id))
     Response::error("file or directory with name '$request_directory_name' already exists in specified directory");
 

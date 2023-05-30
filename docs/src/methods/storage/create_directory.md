@@ -1,7 +1,7 @@
 # create_directory
 Creates new directory
 
-URL: **https://storage.buttex.ru/api/storage/create_directory**\
+URL: `https://storage.buttex.ru/api/storage/create_directory`\
 Method: **GET**\
 Access level: **USER**
 
@@ -20,3 +20,5 @@ Access level: **USER**
 > ### Remarks
 > - If `parent_directory_id` parameter is passed, new directory will be placed into specified directory.
 > Otherwise, directory will be placed into root directory
+> - Only owner of directory and users with access **MODERATOR** or higher can create directories
+> under this directory (see [permission system](../../users/permission-system.md)).

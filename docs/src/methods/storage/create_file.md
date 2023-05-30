@@ -1,7 +1,7 @@
 # create_file
 Uploads file to storage
 
-URL: **https://storage.buttex.ru/api/storage/create_file**\
+URL: `https://storage.buttex.ru/api/storage/create_file`\
 Method: **POST**\
 Access level: **USER**
 
@@ -12,7 +12,7 @@ Access level: **USER**
 | parent_directory_id | Int    | No       | ID of directory where the uploaded file will be placed  |
 | hidden              | Int    | No       | If 1, the uploaded file will not be seen by other users |
 
-## Body
+## POST body
 | Parameter | Type      | Required | Description |
 |-----------|-----------|----------|-------------|
 | file      | Multipart | Yes      | The file    |
@@ -25,4 +25,6 @@ Access level: **USER**
 
 > ### Remarks
 > - If `parent_directory_id` parameter is passed, file will be placed into specified directory.
-> Otherwise, file will be placed into root directory
+> Otherwise, file will be placed into root directory.
+> - Only owner of directory and users with access **MODERATOR** or higher can upload files
+> under this directory (see [permission system](../../users/permission-system.md)).

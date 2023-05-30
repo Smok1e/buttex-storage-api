@@ -1,7 +1,7 @@
 # get_profile_info
 Returns user profile info by the given user id
 
-URL: **https://storage.buttex.ru/api/users/get_profile_info**\
+URL: `https://storage.buttex.ru/api/users/get_profile_info`\
 Method: **GET**\
 Access level: **ANY**
 

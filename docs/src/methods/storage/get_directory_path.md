@@ -1,7 +1,7 @@
 # get_directory_path
 Returns absolute directory path by the given directory id
 
-URL: **https://storage.buttex.ru/api/storage/get_directory_path**\
+URL: `https://storage.buttex.ru/api/storage/get_directory_path`\
 Method: **GET**\
 Access level: **ANY**
 

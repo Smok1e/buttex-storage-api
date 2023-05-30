@@ -46,28 +46,15 @@ class Response {
         die();
     }
 
-    public static function database_error() {
-        self::error("internal database error");
-    }
-
-    public static function invalid_request() {
-        self::error("invalid request");
-    }
-
-    public static function file_not_found() {
-        self::error("file not found", ResponseCode::NOT_FOUND);
-    }
-
-    public static function no_such_user() { 
-        self::error("no such user");
-    }
+    public static function database_error()      { self::error("internal database error"                         ); }
+    public static function invalid_request()     { self::error("invalid request"                                 ); }
+    public static function file_not_found()      { self::error("file not found",          ResponseCode::NOT_FOUND); }
+    public static function directory_not_found() { self::error("directory not found",     ResponseCode::NOT_FOUND); }
+    public static function no_such_user()        { self::error("no such user"                                    ); }
+    public static function permission_denied()   { self::error("permission denied"                               ); }
 
     public static function none_of_params_passed(array $keys) {
         self::error("none of [" . implode(", ", $keys) . "] query fields was passed");
-    }
-
-    public static function permission_denied() {
-        self::error("permission denied");
     }
 }
 

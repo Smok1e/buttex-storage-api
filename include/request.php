@@ -2,6 +2,7 @@
 require_once "database.php";
 require_once "response.php";
 require_once "access_level.php";
+require_once "filesystem.php";
 
 //------------------------------
 
@@ -114,6 +115,20 @@ class Request {
     // Mark endpoint as unavailable
     public static function not_available() {
         Response::error("This method is temporary unavailable", ResponseCode::SERVICE_UNAVAILABLE);
+    }
+
+    // Ensure that directory exists and user is able to write into it
+    public static function check_directory_ownership(int $directory_id) {
+        $owner_id = Filesystem::get_directory_owner($directory_id);
+        if ($owner_id === null) {
+            Response::directory_not_found();
+        }
+
+        if (self::$access_level >= AccessLevel::MODERATOR)
+            return;
+
+        if ($owner_id != self::$user_id)
+            Response::error("you are not able to modify requested directory", ResponseCode::FORBIDDEN);
     }
 }
 

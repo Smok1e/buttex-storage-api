@@ -1,7 +1,7 @@
 # get_directory_id
 Returns directory id by the given path
 
-URL: **https://storage.buttex.ru/api/storage/get_directory_id**\
+URL: `https://storage.buttex.ru/api/storage/get_directory_id`\
 Method: **GET**\
 Access level: **ANY**
 

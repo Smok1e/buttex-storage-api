@@ -1,7 +1,7 @@
 # set_nickname
 Changes associated to given *token* user's nickname
 
-URL: **https://storage.buttex.ru/api/users/set_nickname**\
+URL: `https://storage.buttex.ru/api/users/set_nickname`\
 Method: **GET**\
 Access level: **ANY**
 
