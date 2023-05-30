@@ -11,9 +11,8 @@ Access level: **ANY**
 | token        | String | Yes      | Access token |
 | new_password | String | Yes      | New password |
 
+> Note that after successful invocation of this method, **old user's token will become invalid**.
+> Use [users/get_token](get_token.md) method to retrieve new token associated to user.
+
 ## Returns
 This methods does not return any values
-
-## Remarks
-Note that after successful invocation of this method, **old user's token will become invalid**.
-Use [users/get_token](methods/users/get_token.md) method to retrieve new token associated to user.

@@ -10,11 +10,10 @@ Access level: **ANY**
 |--------------|--------|----------|--------------|
 | directory_id | Int    | No       | Directory id |
 
+> If *parent_directory_id* parameter is not passed, then this method will return 
+> path of the root directory
+
 ## Returns
 | Value | Type   | Description              |
 |-------|--------|--------------------------|
 | path  | String | Requested directory path |
-
-## Remarks
-If *parent_directory_id* parameter is not passed, then this method will return 
-path of the root directory

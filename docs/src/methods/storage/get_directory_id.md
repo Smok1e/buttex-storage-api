@@ -11,11 +11,10 @@ Access level: **ANY**
 | path                | String | Yes      | Directory path    |
 | parent_directory_id | Int    | No       | Root directory id |
 
+> If *parent_directory_id* parameter is passed, then the given path will be
+> considered as relative to this directory. Otherwise, the path will be considered as absolute
+
 ## Returns
 | Value         | Type          | Description              |
 |---------------|---------------|--------------------------| 
 | directory_id  | Int           | Requested directory id   |
-
-## Remarks
-If *parent_directory_id* parameter is passed, then the given path will be
-considered as relative to this directory. Otherwise, the path will be considered as absolute
