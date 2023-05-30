@@ -1,5 +1,5 @@
 # get_directory_path
-Returns file id by the given directory id
+Returns absolute directory path by the given directory id
 
 URL: **https://storage.buttex.ru/api/storage/get_directory_path**\
 Method: **GET**\

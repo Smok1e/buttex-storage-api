@@ -7,10 +7,13 @@ Request::method("GET");
 Request::access_level(AccessLevel::ANY);
 
 $result = Database::get_first_row("
-        SELECT token
+        SELECT 
+            token as `token`
+            id    as `user_id`
         FROM users
-        WHERE name = ?
-        AND password = PASSWORD(?)
+        WHERE 
+            name = ?
+            AND password = PASSWORD(?)
     ",
     "ss",
     Request::query_param("user_name"),
