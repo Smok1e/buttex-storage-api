@@ -6,10 +6,10 @@ Method: **GET**\
 Access level: **ANY**
 
 ## Query
-| Parameter    | Type    | Required | Description  |
-|--------------|---------|----------|--------------|
-| token        | String  | Yes      | Access toen  |
-| new_nickname | String  | Yes      | New nickname |
+| Parameter    | Type    | Required | Description   |
+|--------------|---------|----------|---------------|
+| token        | String  | Yes      | Access token  |
+| new_nickname | String  | Yes      | New nickname  |
 
 ## Returns
 This methods does not return any values
