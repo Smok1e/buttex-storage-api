@@ -17,11 +17,12 @@ Access level: **USER**
 |-----------|-----------|----------|-------------|
 | file      | Multipart | Yes      | The file    |
 
-> If *parent_directory_id* parameter is passed, file will be placed into specified directory.
-> Otherwise, file will be placed into root directory
-
 ## Returns
 | Value    | Type    | Description       |
 |----------|---------|-------------------| 
 | file_id  | Int     | Uploaded file ID  |
 | file_url | String  | Uploaded file URL |
+
+> ### Remarks
+> - If `parent_directory_id` parameter is passed, file will be placed into specified directory.
+> Otherwise, file will be placed into root directory
