@@ -2,7 +2,7 @@
 
 Base URL: **https://storage.buttex.ru/api/methods/users/**
 
-This section allows client to interact users: retrieve token by username and password
+Users section allows client to interact users: retrieve token by username and password
 that is required for actions that are associated with specific user, change user nickname,
 password, etc.
 

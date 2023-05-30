@@ -2,7 +2,7 @@
 
 Base URL: **https://storage.buttex.ru/api/methods/storage/**
 
-This section allows client to interact with files and directories in storage:
+Storage methods allows client to interact with files and directories in storage:
 upload files, create directories, resolve paths, etc.
 
 | Method                                              | Description                                                         |

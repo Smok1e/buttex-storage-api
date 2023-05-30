@@ -6,14 +6,16 @@ Method: **GET**
 Access level: **ANY**
 
 ## Query
-| Parameter | Type   | Required | Description         |
-|-----------|--------|----------|---------------------|
-| path      | String | Yes      | Requested file path |
+| Parameter | Type   | Required | Description                  |
+|-----------|--------|----------|------------------------------|
+| file_id   | String | No*      | Requested file id            |
+| path      | String | No*      | Requested file absoulte path |
 
 ## Returns
 Requested file content
 
 > ### Remarks
+> - At least one of `file_id` and `path` parameters must be passed
 > - Unlike other methods, this method will not return json as the response body.
 > This method will return file content with Content-Type set to file mime type.
 > - If the requested file is not found, method will return plain text saying that

@@ -10,6 +10,19 @@ $criteria = Request::param_passed("parent_directory_id")
     ? "directory_id = " . Request::query_int("parent_directory_id")
     : "directory_id IS NULL";
 
+if (Request::$user_id !== null) {
+    if (Request::$access_level < AccessLevel::ADMIN) {
+        $criteria .= "
+            AND (
+                filesystem_entries.hidden = 0 OR 
+                filesystem_entries.user_id = " . Request::$user_id . "
+            )
+        ";
+    }
+}
+
+else $criteria .= " AND filesystem_entries.hidden = 0";
+
 $common_fields = "
     filesystem_entries.name as `name`,
     filesystem_entries.directory_id as `directory_id`,
@@ -31,7 +44,7 @@ $files = Database::get_table("
             LEFT JOIN users
             ON filesystem_entries.user_id = users.id
 
-        WHERE filesystem_entries.hidden = 0 AND $criteria
+        WHERE $criteria
         ORDER BY files.id DESC
     "
 );
@@ -47,7 +60,7 @@ $directories = Database::get_table("
             LEFT JOIN users
             ON filesystem_entries.user_id = users.id
 
-        WHERE filesystem_entries.hidden = 0 AND $criteria
+        WHERE $criteria
         ORDER BY directories.id DESC
     "
 );
