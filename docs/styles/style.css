@@ -1,0 +1,30 @@
+/* Tables */
+table {
+	width: 100%;
+}
+
+table th {
+	text-align: left;
+	background-color: var(--table-alternate-bg);
+}
+
+table td, table th {
+	border: 2px solid var(--table-border-color);
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+/* Animations */
+.nav-chapters {
+	transition-duration: 0.1s;
+}
+
+.nav-chapters:hover {
+	transition-duration: 0.05s;
+}
+
+/* Headers */
+h2, h3 {
+	margin-top: 1em;
+	margin-bottom: 0.5em;
+}
