@@ -7,9 +7,15 @@ Request::method("GET");
 Request::access_level(AccessLevel::ANY);
 
 $result = Database::get_first_row("
-        SELECT id, name, nickname, access_level 
-        FROM users 
-        WHERE id = ?
+        SELECT 
+            id, 
+            name, 
+            nickname, 
+            access_level 
+        FROM 
+            users 
+        WHERE 
+            id = ?
     ", 
     Request::query_int("user_id")
 );

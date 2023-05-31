@@ -10,9 +10,12 @@ if (strlen(Request::not_empty("new_nickname") > Config::NICKNAME_LIMIT))
     Response::error("nickname is too long");
 
 Database::execute("
-        UPDATE users 
-        SET nickname = ? 
-        WHERE id = ?
+        UPDATE 
+            users 
+        SET 
+            nickname = ? 
+        WHERE 
+            id = ?
     ", 
     "si", 
     strip_tags(Request::not_empty("new_nickname")),

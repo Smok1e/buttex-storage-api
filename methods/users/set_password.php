@@ -7,11 +7,13 @@ Request::method("GET");
 Request::access_level(AccessLevel::USER);
 
 Database::execute("
-        UPDATE users 
+        UPDATE 
+            users 
         SET 
             password = PASSWORD(?),
             token = UUID()
-        WHERE id = ?
+        WHERE 
+            id = ?
     ", 
     "si", 
     Request::not_empty("new_password"),
