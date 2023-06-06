@@ -252,7 +252,7 @@ class Filesystem {
     public static function get_directory_owner(int $directory_id): ?int {
         return Database::get_first_cell("
                 SELECT 
-                    filesystem_entries.user_id as `user_id`
+                    filesystem_entries.user_id
                 FROM 
                     directories
                     LEFT JOIN filesystem_entries
@@ -262,6 +262,40 @@ class Filesystem {
             ",
             "i",
             $directory_id
+        );
+    }
+
+    // Get file owner id
+    public static function get_file_owner(int $file_id): ?int {
+        return Database::get_first_cell("
+                SELECT
+                    filesystem_entries.user_id
+                FROM
+                    files
+                    LEFT JOIN filesystem_entries
+                    ON filesystem_entries.id = files.filesystem_entry_id
+                WHERE
+                    files.id = ?
+            ",
+            "i",
+            $file_id
+        );
+    }
+
+    // Get file parent directory id
+    public static function get_parent_directory_id(int $file_id): ?int {
+        return Database::get_first_cell("
+                SELECT
+                    filesystem_entries.directory_id
+                FROM 
+                    files
+                    LEFT JOIN filesystem_entries
+                    ON filesystem_entries.id = files.filesystem_entry_id
+                WHERE
+                    files.id = ?
+            ",
+            "i",
+            $file_id
         );
     }
 }

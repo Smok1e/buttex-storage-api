@@ -27,8 +27,8 @@ class Request {
         return $_GET[$key]?? null;
     }
 
-    // Get query param and ensure that such is exists
-    public static function query_param(string $key, $default = null): mixed {
+    // Get query param and ensure that such exists
+    public static function query_param(string $key, mixed $default = null): mixed {
         $value = self::query_param_or_null($key);
         if ($value === null) {
             if ($default !== null)
@@ -40,7 +40,32 @@ class Request {
         return $value;
     }
 
-    // Get query param and ensure that it is int, or null if such param is not passed
+    // Get query param and ensure that it is not empty
+    public static function not_empty_or_null(string $key): mixed {
+        $value = self::query_param_or_null($key);
+        if ($value === null)
+            return null;
+
+        if (empty($value))
+            Response::error("field '$key' should not be empty");
+
+        return $value;
+    }
+
+    // Get query param and ensure that it was passed and is not empty
+    public static function not_empty(string $key, mixed $default = null): mixed {
+        $value = self::not_empty_or_null($key);
+        if ($value === null) {
+            if ($default !== null)
+                return $default;
+
+            Response::error("missing param '$key' in request query", ResponseCode::BAD_REQUEST);
+        }
+
+        return $value;
+    }    
+
+    // Get query param and ensure that it is int, or null if such param was not passed
     public static function query_int_or_null(string $key): ?int {
         $value = self::query_param_or_null($key);
         if ($value === null)
@@ -53,7 +78,7 @@ class Request {
     }
 
     // Get int from query and ensure that such param is passed
-    public static function query_int(string $key, $default = null): int {
+    public static function query_int(string $key, ?int $default = null): int {
         $value = self::query_int_or_null($key);
         if ($value === null) {
             if ($default !== null)
@@ -65,11 +90,24 @@ class Request {
         return $value;
     }
 
-    // Get query param and ensure it exsists and is not empty
-    public static function not_empty(string $key): mixed {
-        $value = self::query_param($key);
-        if (empty($value))
-            Response::error("field '$key' should not be empty");
+    // Get safe file base name from query, or null if such param was not passed
+    public static function query_basename_or_null(string $key): ?string {
+        $value = self::not_empty_or_null($key);
+        if ($value === null)
+            return null;
+
+        return basename($value);
+    }
+
+    // Get safe file base name from query and ensure that it was passed
+    public static function query_basename(string $key, ?string $default = null): string {
+        $value = self::query_basename_or_null($key);
+        if ($value === null) {
+            if ($default !== null)
+                return $default;
+
+            Response::error("missing filename '$key' in request query", ResponseCode::BAD_REQUEST);
+        }
 
         return $value;
     }
@@ -118,7 +156,11 @@ class Request {
     }
 
     // Ensure that directory exists and user is able to write into it
-    public static function check_directory_ownership(int $directory_id) {
+    public static function check_directory_ownership(?int $directory_id) {
+        // Null corresponds to the root directory
+        if ($directory_id === null)
+            return;
+
         $owner_id = Filesystem::get_directory_owner($directory_id);
         if ($owner_id === null) {
             Response::directory_not_found();
@@ -129,6 +171,20 @@ class Request {
 
         if ($owner_id != self::$user_id)
             Response::error("you are not able to modify requested directory", ResponseCode::FORBIDDEN);
+    }
+
+    // Ensure that file exists and user is able to modify it
+    public static function check_file_ownership(int $file_id) {
+        $owner_id = Filesystem::get_file_owner($file_id);
+        if ($owner_id === null) {
+            Response::file_not_found();
+        }
+
+        if (self::$access_level >= AccessLevel::MODERATOR)
+            return;
+
+        if ($owner_id != self::$user_id)
+            Response::error("you are not able to modify requested file", ResponseCode::FORBIDDEN);
     }
 }
 

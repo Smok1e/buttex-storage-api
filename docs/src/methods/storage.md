@@ -11,6 +11,7 @@ upload files, create directories, resolve paths, etc.
 | [create_directory](storage/create_directory.md)     | Creates new directory                                               |
 | [delete_file](storage/delete_file.md)               | Deletes file                                                        |
 | [delete_directory](storage/delete_directory.md)     | Deletes directory recirsively                                       |
+| [set_file_name](storage/set_file_name.md)           | Changes file name                                                   |
 | [get_files_list](storage/get_files_list.md)         | Returns list of files and directories under the specified directory |
 | [get_file_content](storage/get_file_content.md)     | Returns file content by the given path                              |
 | [get_file_id](storage/get_file_id.md)               | Returns file id by the given path                                   |

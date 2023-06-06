@@ -10,6 +10,7 @@
         - [create_directory](methods/storage/create_directory.md)
         - [delete_file](methods/storage/delete_file.md)
         - [delete_directory](methods/storage/delete_directory.md)
+        - [set_file_name](methods/storage/set_file_name.md)
         - [get_files_list](methods/storage/get_files_list.md)
         - [get_file_content](methods/storage/get_file_content.md)
         - [get_file_id](methods/storage/get_file_id.md)
