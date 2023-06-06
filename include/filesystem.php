@@ -198,7 +198,7 @@ class Filesystem {
     // Convert directory id to path (321 => "/govno/pizda/zalupa")
     public static function resolve_directory_id(?int $id): string {
         if ($id === null)
-            return "/";
+            return "";
 
         $path = "";
         $current_directory_id = $id;
@@ -244,9 +244,6 @@ class Filesystem {
 
         if (!$file)
             return null;
-
-        if ($file["directory_id"] === null)
-            return $file["name"];
 
         return self::resolve_directory_id($file["directory_id"]) . "/" . $file["name"];
     }
