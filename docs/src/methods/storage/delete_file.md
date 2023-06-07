@@ -15,5 +15,5 @@ Access level: **USER***
 This method does not returns any values.
 
 > ### Remarks
-> If user is not owner of the file, than at least **MODERATOR** access level
+> If user is not owner of the file, then at least **MODERATOR** access level
 > is required for this method (see [permission system](../../users/permission-system.md)).
