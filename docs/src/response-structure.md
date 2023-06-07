@@ -4,7 +4,7 @@ with the following structure depending on success of the method
 
 ## Successful response
 Successful response will always return code in range [200; 299]
-and the response body will contain *data* object with the response data,
+and the response body will contain `data` object with the response data,
 even if the response data is empty.
 
 Here's an example of successful response from `https://storage.buttex.ru/api/storage/get_files_list?parent_directory_id=4`:
@@ -41,7 +41,7 @@ Here's an example of successful response from `https://storage.buttex.ru/api/sto
 
 ## Error response
 Error response will retrn code in range outside of [200; 299]
-and the response body will contain *error* string and *error_data* object
+and the response body will contain `error` string and `error_data` object
 that could contain some additional error information.
 
 Here's an example of error response from `https://storage.buttex.ru/api/storage/get_file_path?file_id=1412`:
