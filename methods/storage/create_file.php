@@ -11,6 +11,7 @@ $request_file                = Request::file("file");
 $request_file_base_name      = basename($request_file["name"]);
 $request_parent_directory_id = Request::query_int_or_null("parent_directory_id");
 $request_hidden              = Request::query_int("hidden", 0);
+$request_lifetime            = Request::query_int_or_null("lifetime");
 
 // Check that user is able to write into requested directory
 Request::check_directory_ownership($request_parent_directory_id);
@@ -27,7 +28,7 @@ $filesystem_entry_id = Filesystem::create_entry(
     $request_hidden
 );
 
-$file_id = Filesystem::create_file($filesystem_entry_id);
+$file_id = Filesystem::create_file($filesystem_entry_id, $request_lifetime);
 
 // Receive file
 if (!move_uploaded_file($request_file["tmp_name"], Config::STORAGE_DATA_DIR . $file_id)) {

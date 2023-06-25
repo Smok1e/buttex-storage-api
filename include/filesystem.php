@@ -27,11 +27,12 @@ class Filesystem {
     }
 
     // Create new file in database
-    public static function create_file(int $filesystem_entry_id) {
+    public static function create_file(int $filesystem_entry_id, ?int $lifetime = null) {
         return Database::execute(
-            "INSERT INTO files(filesystem_entry_id) VALUES(?)", 
-            "i", 
-            $filesystem_entry_id
+            "INSERT INTO files(filesystem_entry_id, lifetime) VALUES(?, ?)",
+            "ii", 
+            $filesystem_entry_id,
+            $lifetime
         );
     }
 

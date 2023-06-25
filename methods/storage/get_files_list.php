@@ -34,7 +34,10 @@ $common_fields = "
 ";
 
 $files = Database::get_table("
-        SELECT files.id as `id`, $common_fields
+        SELECT 
+            files.id as `id`,
+            files.lifetime as `lifetime`,
+            $common_fields
         FROM 
             files
         

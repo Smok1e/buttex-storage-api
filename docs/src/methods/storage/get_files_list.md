@@ -12,7 +12,7 @@ Access level: **ANY**
 | parent_directory_id | Int    | No        | ID of directory that will be listed  |
 
 ## Returns
-This method returns two arrays: *files* and *directories* \
+This method returns two arrays: `files` and `directories` \
 Each array item has all of the following fields: 
 
 | Value         | Type          | Description              |
@@ -25,6 +25,9 @@ Each array item has all of the following fields:
 | user_id       | Int           | Owner id                 |
 | user_name     | String        | Owner username           |
 | user_nickname | String        | Owner nickname           |
+
+Also, each `files` array item will have `lifetime` field set to `null` or to an integer 
+value, represeting time in seconds after which the file will be deleted counting from `creation_time`.
 
 > ### Remarks
 > - If `parent_directory_id` parameter is not passed, then method will return
