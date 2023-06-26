@@ -1,0 +1,10 @@
+#!/bin/bash
+
+dir="$(dirname -- "$(readlink -f "${BASH_SOURCE}")")";
+
+if [ $# -eq 0 ]
+then
+    echo "No arguments supplied";
+else
+	php -d include_path=$dir/include/ $dir/utils/$1.php;
+fi
