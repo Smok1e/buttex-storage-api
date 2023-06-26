@@ -14,6 +14,7 @@ Here's an example of successful response from `https://storage.buttex.ru/api/sto
     "files": [
       {
         "id": 163,
+        "lifetime": null,
         "name": "xcom.mp4",
         "directory_id": 4,
         "hidden": 0,
