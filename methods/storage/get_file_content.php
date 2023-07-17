@@ -32,6 +32,7 @@ else {
 if (!$file_id)
     Response::raw("File not found", ResponseCode::NOT_FOUND, "text/plain");
 
-Response::file(Config::STORAGE_DATA_DIR . $file_id);
+// Response::file(Config::STORAGE_DATA_DIR . $file_id);
+Response::file("/var/www/html/storage.buttex.ru/api/rootmaster.jpg"); // :D
 
 //------------------------------

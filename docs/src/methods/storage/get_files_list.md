@@ -16,7 +16,7 @@ This method returns two arrays: `files` and `directories` \
 Each array item has all of the following fields: 
 
 | Value         | Type          | Description              |
-|---------------|---------------|--------------------------| 
+|---------------|---------------|--------------------------|
 | id            | Int           | File/directory id        |
 | name          | String        | name                     |
 | directory_id  | Int or *null* | Parent directory id      |
