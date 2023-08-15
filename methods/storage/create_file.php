@@ -38,8 +38,8 @@ if (!move_uploaded_file($request_file["tmp_name"], Config::STORAGE_DATA_DIR . $f
 
 Response::set([
     "file_id" => $file_id,
-    "file_url" => Config::SERVER_BASE_URL . "/data" . Filesystem::resolve_file_id($file_id),
-    "file_premanent_url" => Config::SERVER_BASE_URL . "/permanent/" . $file_id
+    "file_url" => Filesystem::get_file_url($file_id),
+    "file_premanent_url" => Filesystem::get_file_permanent_url($file_id)
 ]);
 
 //------------------------------

@@ -16,6 +16,7 @@ upload files, create directories, resolve paths, etc.
 | [get_files_list](storage/get_files_list.md)         | Returns list of files and directories under the specified directory |
 | [get_file_content](storage/get_file_content.md)     | Returns file content by the given path                              |
 | [get_file_id](storage/get_file_id.md)               | Returns file id by the given path                                   |
+| [get_file_info](storage/get_file_info.md)           | Returns Returns file info by id                                     |
 | [get_directory_id](storage/get_directory_id.md)     | Returns directory id by the given path                              |
 | [get_file_path](storage/get_file_path.md)           | Returns absolute file path by the given file id                     |
 | [get_directory_path](storage/get_directory_path.md) | Returns absolute directory path by the given directory id           |

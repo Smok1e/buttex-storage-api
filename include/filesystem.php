@@ -69,7 +69,7 @@ class Filesystem {
     }
 
     // Get real file path by id
-    public static function get_real_path(int $file_id) {
+    public static function get_real_path(int $file_id): string {
         return Config::STORAGE_DATA_DIR . $file_id;
     }
 
@@ -298,6 +298,21 @@ class Filesystem {
             "i",
             $file_id
         );
+    }
+
+    // Get file URL
+    public static function get_file_url(int $file_id): string {
+        return Config::SERVER_BASE_URL . "/data" . Filesystem::resolve_file_id($file_id);
+    }
+
+    // Get file permanent URL
+    public static function get_file_permanent_url(int $file_id): string {
+        return Config::SERVER_BASE_URL . "/permanent/" . $file_id;
+    }
+
+    // Get file size in bytes
+    public static function get_file_size(int $file_id): int {
+        return filesize(Filesystem::get_real_path($file_id));
     }
 }
 //------------------------------

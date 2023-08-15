@@ -15,6 +15,7 @@
         - [get_files_list](methods/storage/get_files_list.md)
         - [get_file_content](methods/storage/get_file_content.md)
         - [get_file_id](methods/storage/get_file_id.md)
+        - [get_file_info](methods/storage/get_file_info.md)
         - [get_directory_id](methods/storage/get_directory_id.md)
         - [get_file_path](methods/storage/get_file_path.md)
         - [get_directory_path](methods/storage/get_directory_path.md)
