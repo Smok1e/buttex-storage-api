@@ -1,5 +1,5 @@
 # Response structure
-Each method, except [get_file_content](#get_file_content), will return content formatted as json 
+Each method, except [get_file_content](methods/storage/get_file_content.md), will return content formatted as json 
 with the following structure depending on success of the method
 
 ## Successful response
