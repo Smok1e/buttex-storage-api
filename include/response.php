@@ -22,7 +22,7 @@ class Response {
     }
 
     public static function error_with_data(string $message, array $data = [], int $status = ResponseCode::UNPROCESSABLE_ENTITY) {
-        self::raw(json_encode(["error" => $message, "error_data" => $data], $status));
+        self::raw(json_encode(["error" => $message, "error_data" => $data]), $status);
     }
 
     public static function error(string $message, int $status = ResponseCode::UNPROCESSABLE_ENTITY) {
