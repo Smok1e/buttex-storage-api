@@ -9,6 +9,7 @@ Access level: **USER**
 | Parameter           | Type   | Required | Description                                         |
 |---------------------|--------|----------|-----------------------------------------------------|
 | token               | String | Yes      | User access token                                   |
+| directory_name      | String | Yes      | New directory name                                  |
 | parent_directory_id | Int    | No       | ID of directory where new directory will be placed  |
 | hidden              | Int    | No       | If 1, the directory will not be seen by other users |
 
