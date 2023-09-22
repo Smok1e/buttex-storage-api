@@ -10,7 +10,7 @@ Database::execute("
         UPDATE 
             users 
         SET 
-            password = PASSWORD(?),
+            password = SHA2(?, 256),
             token = UUID()
         WHERE 
             id = ?

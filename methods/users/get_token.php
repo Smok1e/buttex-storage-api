@@ -14,7 +14,7 @@ $result = Database::get_first_row("
             users
         WHERE 
             name = ?
-            AND password = PASSWORD(?)
+            AND password = SHA2(?, 256)
     ",
     "ss",
     Request::query_param("user_name"),
