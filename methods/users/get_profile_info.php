@@ -17,6 +17,7 @@ $result = Database::get_first_row("
         WHERE 
             id = ?
     ", 
+    "i",
     Request::query_int("user_id")
 );
 
