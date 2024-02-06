@@ -1,5 +1,5 @@
 # set_password
-Changes associated to given *token* user's password
+Changes associated to given `token` user's password
 
 URL: `https://storage.buttex.ru/api/users/set_password`\
 Method: **GET**\
