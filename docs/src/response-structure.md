@@ -41,7 +41,7 @@ Here's an example of successful response from `https://storage.buttex.ru/api/sto
 ```
 
 ## Error response
-Error response will retrn code in range outside of [200; 299]
+Error response will return code in range outside of [200; 299]
 and the response body will contain `error` string and `error_data` object
 that could contain some additional error information.
 
