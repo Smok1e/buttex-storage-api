@@ -6,12 +6,12 @@ require_once "request.php";
 Request::method("GET");
 Request::access_level(AccessLevel::ANY);
 
+$request_fields = "id, name, nickname, access_level";
+if (Request::$access_level >= AccessLevel::ADMIN)
+    $request_fields .= ", token";
+
 $result = Database::get_first_row("
-        SELECT 
-            id, 
-            name, 
-            nickname, 
-            access_level 
+        SELECT $request_fields
         FROM 
             users 
         WHERE 

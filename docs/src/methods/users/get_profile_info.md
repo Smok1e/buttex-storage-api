@@ -6,9 +6,10 @@ Method: **GET**\
 Access level: **ANY**
 
 ## Query
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| user_id   | Int  | Yes      | User ID     |
+| Parameter | Type   | Required | Description |
+|-----------|--------|----------|-------------|
+| token     | String | No       | User ID     |
+| user_id   | Int    | Yes      | User ID     |
 
 ## Returns
 | Value        | Type   | Description       |
@@ -17,3 +18,8 @@ Access level: **ANY**
 | name         | String | User name         |
 | nickname     | String | User nickname     |
 | access_level | Int    | User access level |
+| token*       | String | User token        |
+
+> ### Remarks
+> The `token` field will be returned only for users with access 
+> level of **ADMIN** or higher (see [permission system](../../users/permission-system.md)).
