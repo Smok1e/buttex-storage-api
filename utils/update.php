@@ -3,7 +3,7 @@ require_once "config.php";
 require_once "database.php";
 require_once "filesystem.php";
 
-//------------------------------
+//=============================================
 
 $files = Database::get_table("
         SELECT 
@@ -31,4 +31,4 @@ foreach ($files as $file) {
 
 echo "Deleted " . count($files) . " files\n";
 
-//------------------------------
+//=============================================

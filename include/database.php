@@ -2,7 +2,7 @@
 require_once "config.php";
 require_once "response.php";
 
-//------------------------------
+//=============================================
 
 class Database {
     static mysqli $connection;
@@ -93,4 +93,4 @@ Database::$connection = new mysqli(
 
 Database::$connection->set_charset('utf8mb4');
 
-//------------------------------
+//=============================================

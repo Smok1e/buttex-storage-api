@@ -2,7 +2,7 @@
 require_once "request.php";
 require_once "filesystem.php";
 
-//------------------------------
+//=============================================
 
 Request::method("GET");
 Request::access_level(AccessLevel::ANY);
@@ -34,4 +34,4 @@ if (!$file_id)
 
 Response::file(Config::STORAGE_DATA_DIR . $file_id);
 
-//------------------------------
+//=============================================

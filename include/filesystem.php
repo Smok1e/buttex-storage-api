@@ -1,7 +1,7 @@
 <?php
 require_once "database.php";
 
-//------------------------------
+//=============================================
 
 class Filesystem {
     // Get directory condition for SQL query
@@ -12,7 +12,7 @@ class Filesystem {
     }
 
     // Create new filesystem entry in database
-    public static function create_entry(string $name, int $user_id, ?int $parent_directory_id = null, ?int $hidden = 0) {
+    public static function create_entry(string $name, ?int $user_id = null, ?int $parent_directory_id = null, ?int $hidden = 0) {
         return Database::execute("
                 INSERT INTO 
                     filesystem_entries(name, directory_id, user_id, hidden)
@@ -30,7 +30,7 @@ class Filesystem {
     public static function create_file(int $filesystem_entry_id, ?int $lifetime = null) {
         return Database::execute(
             "INSERT INTO files(filesystem_entry_id, lifetime) VALUES(?, ?)",
-            "ii", 
+            "ii",
             $filesystem_entry_id,
             $lifetime
         );
@@ -188,7 +188,7 @@ class Filesystem {
                     LEFT JOIN filesystem_entries
                     ON filesystem_entries.id = files.filesystem_entry_id
                 WHERE
-                    " . self::build_dir_condition($parent_directory_id) ."
+                    " . self::build_dir_condition($parent_directory_id) . "
                     AND filesystem_entries.name = ?
             ",
             "s",
@@ -283,6 +283,42 @@ class Filesystem {
         );
     }
 
+    // Get all directories owned by the user
+    public static function get_user_directories(int $user_id): array {
+        return Database::get_column(
+            "id", "
+                SELECT
+                    directories.id
+                FROM
+                    directories
+                    LEFT JOIN filesystem_entries
+                    ON filesystem_entries.id = directories.filesystem_entry_id
+                WHERE
+                    filesystem_entries.user_id = ?
+            ",
+            "i",
+            $user_id
+        );
+    }
+
+    // Get all files owned by the user
+    public static function get_user_files(int $user_id): array {
+        return Database::get_column(
+            "id", "
+                SELECT
+                    files.id
+                FROM
+                    files
+                    LEFT JOIN filesystem_entries
+                    ON filesystem_entries.id = files.filesystem_entry_id
+                WHERE
+                    filesystem_entries.user_id = ?
+            ",
+            "i",
+            $user_id
+        );
+    }    
+
     // Get file parent directory id
     public static function get_parent_directory_id(int $file_id): ?int {
         return Database::get_first_cell("
@@ -315,4 +351,4 @@ class Filesystem {
         return filesize(Filesystem::get_real_path($file_id));
     }
 }
-//------------------------------
+//=============================================

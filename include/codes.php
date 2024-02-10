@@ -1,6 +1,6 @@
 <?php
 
-//------------------------------
+//=============================================
 
 class ResponseCode {
     public const CONTINUE = 100;
@@ -72,4 +72,4 @@ class ResponseCode {
     public const NETWORK_AUTHENTICATION_REQUIRED = 511;                             // RFC6585
 }
 
-//------------------------------
+//=============================================

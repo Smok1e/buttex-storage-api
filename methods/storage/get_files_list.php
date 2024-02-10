@@ -1,7 +1,7 @@
 <?php
 require_once "request.php";
 
-//------------------------------
+//=============================================
 
 Request::method("GET");
 Request::access_level(AccessLevel::ANY);
@@ -73,4 +73,4 @@ Response::set([
     "directories" => $directories
 ]);
 
-//------------------------------
+//=============================================

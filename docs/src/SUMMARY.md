@@ -24,3 +24,5 @@
         - [get_profile_info](methods/users/get_profile_info.md)
         - [set_nickname](methods/users/set_nickname.md)
         - [set_password](methods/users/set_password.md)
+        - [create_user](methods/users/create_user.md)
+        - [delete_user](methods/users/delete_user.md)

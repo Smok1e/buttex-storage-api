@@ -1,7 +1,7 @@
 <?php 
 require_once "request.php";
 
-//------------------------------
+//=============================================
 
 Request::method("GET");
 Request::access_level(AccessLevel::ANY);
@@ -21,9 +21,9 @@ $result = Database::get_first_row("
     Request::query_int("user_id")
 );
 
-if (!$result) 
+if (!$result)
     Response::no_such_user();
 
 Response::set($result);
 
-//------------------------------
+//=============================================

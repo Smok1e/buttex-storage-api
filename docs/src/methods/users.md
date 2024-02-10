@@ -12,3 +12,5 @@ password, etc.
 | [get_profile_info](users/get_profile_info.md) | Returns user profile info by the given user id |
 | [set_nickname](users/set_nickname.md)         | Changes nickname                               |
 | [set_password](users/set_password.md)         | Changes password                               |
+| [create_user](users/create_user.md)           | Creates new user                               |
+| [delete_user](users/delete_user.md)           | Permanently deletes user                       |

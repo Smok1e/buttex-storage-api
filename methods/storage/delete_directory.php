@@ -2,7 +2,7 @@
 require_once "request.php";
 require_once "filesystem.php";
 
-//------------------------------
+//=============================================
 
 Request::method("GET");
 Request::access_level(AccessLevel::USER);
@@ -16,4 +16,4 @@ Request::check_directory_ownership($directory_id);
 Filesystem::delete_directory($directory_id);
 Response::ok();
 
-//------------------------------
+//=============================================

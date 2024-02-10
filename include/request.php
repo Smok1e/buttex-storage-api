@@ -4,12 +4,12 @@ require_once "response.php";
 require_once "access_level.php";
 require_once "filesystem.php";
 
-//------------------------------
+//=============================================
 
 class Request {
-    public static ?int    $user_id      = null;
-    public static ?string $token        = null;
-    public static ?int    $access_level = AccessLevel::ANY;
+    public static ?int        $user_id      = null;
+    public static ?string     $token        = null;
+    public static AccessLevel $access_level = AccessLevel::ANY;
 
     // Ensure that method is correct
     public static function method(string $method) {
@@ -59,7 +59,7 @@ class Request {
             if ($default !== null)
                 return $default;
 
-            Response::error("missing param '$key' in request query", ResponseCode::BAD_REQUEST);
+            Response::error("missing field '$key' in request query", ResponseCode::BAD_REQUEST);
         }
 
         return $value;
@@ -122,7 +122,7 @@ class Request {
     }
 
     // Check user credentials and access level
-    public static function access_level(int $level): ?int {
+    public static function access_level(AccessLevel $level): ?int {
         if (self::param_passed("token")) {
             $user = Database::get_first_row("
                     SELECT access_level, id, token
@@ -137,14 +137,14 @@ class Request {
             {
                 self::$user_id = $user["id"];
                 self::$token = $user["token"];
-                self::$access_level = $user["access_level"];
+                self::$access_level = AccessLevel::from($user["access_level"]);
             }
             
             else if ($level > AccessLevel::ANY)
                 Response::error("wrong token", ResponseCode::UNAUTHORIZED);
         }
 
-        if (self::$access_level < $level)
+        if (self::$access_level->value < $level->value)
             Response::error("access denied", ResponseCode::FORBIDDEN);
 
         return self::$user_id;
@@ -156,7 +156,7 @@ class Request {
     }
 
     // Ensure that directory exists and user is able to write into it
-    public static function check_directory_ownership(?int $directory_id, int $required_access_level = AccessLevel::MODERATOR) {
+    public static function check_directory_ownership(?int $directory_id, AccessLevel $required_access_level = AccessLevel::MODERATOR) {
         // Null corresponds to the root directory
         if ($directory_id === null)
             return;
@@ -166,7 +166,7 @@ class Request {
             Response::directory_not_found();
         }
 
-        if (self::$access_level >= $required_access_level)
+        if (self::$access_level->value >= $required_access_level->value)
             return;
 
         if ($owner_id != self::$user_id)
@@ -174,13 +174,13 @@ class Request {
     }
 
     // Ensure that file exists and user is able to modify it
-    public static function check_file_ownership(int $file_id, int $required_access_level = AccessLevel::MODERATOR) {
+    public static function check_file_ownership(int $file_id, AccessLevel $required_access_level = AccessLevel::MODERATOR) {
         $owner_id = Filesystem::get_file_owner($file_id);
         if ($owner_id === null) {
             Response::file_not_found();
         }
 
-        if (self::$access_level >= $required_access_level)
+        if (self::$access_level->value >= $required_access_level->value)
             return;
 
         if ($owner_id != self::$user_id)
@@ -188,7 +188,7 @@ class Request {
     }
 }
 
-//------------------------------
+//=============================================
 
 function internal_error_handler()
 {
@@ -208,4 +208,4 @@ function internal_error_handler()
 
 register_shutdown_function("internal_error_handler");
 
-//------------------------------
+//=============================================

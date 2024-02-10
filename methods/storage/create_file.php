@@ -2,7 +2,7 @@
 require_once "request.php";
 require_once "filesystem.php";
 
-//------------------------------
+//=============================================
 
 Request::method("POST");
 Request::access_level(AccessLevel::USER);
@@ -42,4 +42,4 @@ Response::set([
     "file_premanent_url" => Filesystem::get_file_permanent_url($file_id)
 ]);
 
-//------------------------------
+//=============================================

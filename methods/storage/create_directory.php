@@ -2,7 +2,7 @@
 require_once "request.php";
 require_once "filesystem.php";
 
-//------------------------------
+//=============================================
 
 Request::method("GET");
 Request::access_level(AccessLevel::USER);
@@ -30,4 +30,4 @@ Response::set([
     "directory_id" => Filesystem::cretate_directory($filesystem_entry_id)
 ]);
 
-//------------------------------
+//=============================================

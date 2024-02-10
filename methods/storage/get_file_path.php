@@ -2,7 +2,7 @@
 require_once "request.php";
 require_once "filesystem.php";
 
-//------------------------------
+//=============================================
 
 Request::method("GET");
 Request::access_level(AccessLevel::ANY);
@@ -15,4 +15,4 @@ Response::set([
     "path" => $path
 ]);
 
-//------------------------------
+//=============================================

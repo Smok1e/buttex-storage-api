@@ -3,7 +3,7 @@ require_once "config.php";
 require_once "database.php";
 require_once "filesystem.php";
 
-//------------------------------
+//=============================================
 
 echo "Scanning filesystem...\n";
 $database_files = Database::get_column(
@@ -72,4 +72,4 @@ else {
     echo "Aborting\n";
 }
 
-//------------------------------
+//=============================================

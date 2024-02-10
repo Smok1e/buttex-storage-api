@@ -1,7 +1,7 @@
 <?php
 require_once "codes.php";
 
-//------------------------------
+//=============================================
 
 class Response {
     public static function raw(string $data, int $status = ResponseCode::OK, string $content_type = "application/json") {
@@ -58,4 +58,4 @@ class Response {
     }
 }
 
-//------------------------------
+//=============================================
