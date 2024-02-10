@@ -52,6 +52,10 @@ $files = Database::get_table("
     "
 );
 
+foreach($files as &$file) {
+    $file["size"] = Filesystem::get_file_size($file["id"]);
+}
+
 $directories = Database::get_table("
         SELECT directories.id as `id`, $common_fields
         FROM
