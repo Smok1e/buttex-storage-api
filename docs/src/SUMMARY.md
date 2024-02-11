@@ -2,7 +2,7 @@
 
 - [Response structure](response-structure.md)
 - [Users](users.md)
-    - [Authentication](users/authentication.md)
+    - [Authorization](users/authorization.md)
     - [Permission system](users/permission-system.md)
 - [API methods](methods.md)
     - [Storage methods](methods/storage.md)
