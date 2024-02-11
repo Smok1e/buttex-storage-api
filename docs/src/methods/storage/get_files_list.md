@@ -20,6 +20,7 @@ Each array item has all of the following fields:
 | id            | Int           | File/directory id                         |
 | name          | String        | name                                      |
 | size          | Int           | File size in bytes (only for files)       |
+| type          | String        | File content mime type (only for files)   |
 | directory_id  | Int or *null* | Parent directory id                       |
 | hidden        | Int           | Is file/directory hidden                  |
 | creation_time | Int           | Creation timestamp                        |

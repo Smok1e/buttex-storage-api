@@ -45,7 +45,8 @@ Response::set(array_merge(
     $file_info, [
         "size" => Filesystem::get_file_size($file_id),
         "url" => Filesystem::get_file_url($file_id),
-        "permanent_url" => Filesystem::get_file_permanent_url($file_id)
+        "permanent_url" => Filesystem::get_file_permanent_url($file_id),
+        "type" => Filesystem::get_file_mime_type($file_id)
     ])
 );
 

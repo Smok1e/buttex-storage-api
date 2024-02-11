@@ -350,5 +350,10 @@ class Filesystem {
     public static function get_file_size(int $file_id): int {
         return filesize(Filesystem::get_real_path($file_id));
     }
+
+    // Get file mime type
+    public static function get_file_mime_type(int $file_id): string {
+        return mime_content_type(Filesystem::get_real_path($file_id));
+    }
 }
 //=============================================

@@ -23,5 +23,6 @@ Access level: **ANY**
 | user_name     | String        | Owner name               |
 | user_nickname | String        | Owner nickname           |
 | size          | Int           | File size                |
+| type          | String        | File content mime type   |
 | url           | String        | File url                 |
 | permanent_url | String        | File permanent url       |
