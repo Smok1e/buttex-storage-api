@@ -16,7 +16,7 @@ If user uploaded a file, then the ownership of this file will be assigned to thi
 Only file owner and admins are have permission to modify delete one.
 
 ## See also:
-* [Autentication](users/authentication.md)
+* [Authorization](users/authorization.md)
 * [Permission system](users/permission-system.md)
 * [Users methods](methods/users.md)
 

@@ -123,14 +123,19 @@ class Request {
 
     // Check user credentials and access level
     public static function access_level(AccessLevel $level): ?int {
-        if (self::param_passed("token")) {
+        $header = $_SERVER['Authorization']?? $_SERVER['HTTP_AUTHORIZATION']?? null;
+        
+        if ($header !== null) {
+            if (strlen($header) < 8)
+                Response::error("malformed authorization header", ResponseCode::UNAUTHORIZED);
+
             $user = Database::get_first_row("
                     SELECT access_level, id, token
                     FROM users
                     WHERE token = ?
                 ",
                 "s",
-                self::query_param("token")
+                substr($header, 7)
             );
 
             if ($user)

@@ -8,7 +8,6 @@ Access level: **USER**
 ## Query
 | Parameter           | Type   | Required | Description                                             |
 |---------------------|--------|----------|---------------------------------------------------------|
-| token               | String | Yes      | User access token                                       |
 | parent_directory_id | Int    | No       | ID of directory where the uploaded file will be placed  |
 | hidden              | Int    | No       | If 1, the uploaded file will not be seen by other users |
 | lifetime            | Int    | No       | Time (in seconds) after which the file will be deleted  |

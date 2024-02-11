@@ -8,7 +8,6 @@ Access level: **ANY**
 ## Query
 | Parameter           | Type   | Required  | Description                          |
 |---------------------|--------|-----------|--------------------------------------|
-| token               | String | No        | User access token                    |
 | parent_directory_id | Int    | No        | ID of directory that will be listed  |
 
 ## Returns
@@ -32,5 +31,5 @@ Each array item has all of the following fields:
 > ### Remarks
 > - If `parent_directory_id` parameter is not passed, then method will return
 >   list of root directory files. Otherwise, the specified directory will be listed.
-> - If `token` parameter is passed, then hidden files that user owns will also be listed
+> - If the authorization header is passed, then hidden files that user owns will also be listed
 > - This method **will not** list files recursively.

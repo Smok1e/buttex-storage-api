@@ -8,7 +8,6 @@ Access level: **USER**
 ## Query
 | Parameter | Type   | Required | Description       |
 |-----------|--------|----------|-------------------|
-| token     | String | Yes      | User access token |
 | file_id   | Int    | Yes      | File id           |
 | hidden    | Int    | Yes      | Hidden flag       |
 

@@ -8,7 +8,6 @@ Access level: **ANY**
 ## Query
 | Parameter | Type   | Required | Description |
 |-----------|--------|----------|-------------|
-| token     | String | No       | User ID     |
 | user_id   | Int    | Yes      | User ID     |
 
 ## Returns

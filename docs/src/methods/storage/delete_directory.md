@@ -9,7 +9,6 @@ Access level: **USER***
 ## Query
 | Parameter    | Type   | Required | Description       |
 |--------------|--------|----------|-------------------|
-| token        | String | Yes      | User access token |
 | directory_id | Int    | Yes      | File id           |
 
 ## Returns

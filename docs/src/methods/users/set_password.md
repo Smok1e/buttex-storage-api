@@ -3,12 +3,11 @@ Changes associated to given `token` user's password
 
 URL: `https://storage.buttex.ru/api/users/set_password`\
 Method: **GET**\
-Access level: **ANY**
+Access level: **USER**
 
 ## Query
 | Parameter    | Type   | Required | Description  |
 |--------------|--------|----------|--------------|
-| token        | String | Yes      | Access token |
 | new_password | String | Yes      | New password |
 
 ## Returns
