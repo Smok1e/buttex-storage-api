@@ -22,7 +22,7 @@ Here is a table that compares access level number value with it's meaning:
 |  1           | **MODERATOR** | User have access to methods with access level of **MODERATOR** and lower |
 |  2           | **ADMIN**     | User have access to any method                                           |
 
-> If method access level is marked as **ANY**, is means that method is not using any user information, and 
+> If method access level is marked as **ANY**, it means that method is not using any user information, and 
 > access token is not required for this this method. Otherwise, you can't invoke this method without token.
 
 ## Access violation

@@ -9,8 +9,7 @@ then the access token is not required to use this method (see [permission system
 This token is then passed with `Authorization` header to identify the user.
 To retrieve your access token, use [get_token](../methods/users/get_token.md) method.
 
-> Authorization header must be prefixed with **Bearer** keyword. 
-> For example, `Authorization: Bearer 5d7b38a7-fefd-11ed-b5e1-305a3a090b6e`
+> Authorization header example: `Authorization: 5d7b38a7-fefd-11ed-b5e1-305a3a090b6e`
 
 Here is an example of authorization request:
 `https://storage.buttex.ru/api/users/get_token?user_name=test_user&user_password=test_password`
