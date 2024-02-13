@@ -2,7 +2,7 @@
 Returns list of files and directories under the specified directory
 
 URL: `https://storage.buttex.ru/api/storage/get_files_list`\
-Method: **GET** \
+Method: **GET**\
 Access level: **ANY**
 
 ## Query

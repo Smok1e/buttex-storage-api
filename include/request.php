@@ -7,9 +7,9 @@ require_once "filesystem.php";
 //=============================================
 
 class Request {
-    public static ?int        $user_id      = null;
-    public static ?string     $token        = null;
-    public static AccessLevel $access_level = AccessLevel::ANY;
+    public static ?int    $user_id      = null;
+    public static ?string $token        = null;
+    public static int     $access_level = AccessLevel::ANY;
 
     // Ensure that method is correct
     public static function method(string $method) {
@@ -122,7 +122,7 @@ class Request {
     }
 
     // Check user credentials and access level
-    public static function access_level(AccessLevel $level): ?int {
+    public static function access_level(int $level): ?int {
         $token = $_SERVER['Authorization']?? $_SERVER['HTTP_AUTHORIZATION']?? null;
         
         if ($token !== null) {
@@ -139,14 +139,14 @@ class Request {
             {
                 self::$user_id = $user["id"];
                 self::$token = $user["token"];
-                self::$access_level = AccessLevel::from($user["access_level"]);
+                self::$access_level = $user["access_level"];
             }
             
             else if ($level > AccessLevel::ANY)
                 Response::error("wrong token", ResponseCode::UNAUTHORIZED);
         }
 
-        if (self::$access_level->value < $level->value)
+        if (self::$access_level < $level)
             Response::error("access denied", ResponseCode::FORBIDDEN);
 
         return self::$user_id;
@@ -168,7 +168,7 @@ class Request {
             Response::directory_not_found();
         }
 
-        if (self::$access_level->value >= $required_access_level->value)
+        if (self::$access_level >= $required_access_level)
             return;
 
         if ($owner_id != self::$user_id)
@@ -182,7 +182,7 @@ class Request {
             Response::file_not_found();
         }
 
-        if (self::$access_level->value >= $required_access_level->value)
+        if (self::$access_level >= $required_access_level)
             return;
 
         if ($owner_id != self::$user_id)

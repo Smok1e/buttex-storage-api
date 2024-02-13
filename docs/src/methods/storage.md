@@ -14,7 +14,8 @@ upload files, create directories, resolve paths, etc.
 | [set_file_name](storage/set_file_name.md)           | Changes file name                                                   |
 | [set_file_hidden](storage/set_file_hidden.md)       | Sets file hidden flag                                               |
 | [get_files_list](storage/get_files_list.md)         | Returns list of files and directories under the specified directory |
-| [get_file_content](storage/get_file_content.md)     | Returns file content by the given path                              |
+| [get_file_content](storage/get_file_content.md)     | Returns file content by the given id or path                        |
+| [get_file_preview](storage/get_file_preview.md)     | Returns file preview by the given id                                |
 | [get_file_id](storage/get_file_id.md)               | Returns file id by the given path                                   |
 | [get_file_info](storage/get_file_info.md)           | Returns Returns file info by id                                     |
 | [get_directory_id](storage/get_directory_id.md)     | Returns directory id by the given path                              |

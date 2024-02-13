@@ -9,6 +9,8 @@ class Config {
     public const DATABASE_NAME = "storage";
     public const DATABASE_PORT = 3306;
     public const STORAGE_DATA_DIR = "/var/www/html/storage.buttex.ru/api/data/";
+    public const STORAGE_THUMBNAILS_DIR = "/var/www/html/storage.buttex.ru/api/thumbnails/";
+    public const THUMBNAIL_SIZE = 128;
     public const SERVER_BASE_URL = "https://storage.buttex.ru";
     public const NICKNAME_LIMIT = 32;
 }

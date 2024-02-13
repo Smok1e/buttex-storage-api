@@ -1,14 +1,14 @@
 # get_file_content
-Returns file content by the given path
+Returns file content by the given id or path
 
 URL: `https://storage.buttex.ru/api/storage/get_file_content`\
-Method: **GET**
+Method: **GET**\
 Access level: **ANY**
 
 ## Query
 | Parameter | Type   | Required | Description                  |
 |-----------|--------|----------|------------------------------|
-| file_id   | String | No*      | Requested file id            |
+| file_id   | Int    | No*      | Requested file id            |
 | path      | String | No*      | Requested file absoulte path |
 
 ## Returns

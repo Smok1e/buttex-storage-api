@@ -2,11 +2,11 @@
 
 //=============================================
 
-enum AccessLevel: int {
-    case ANY = -1;
-    case USER = 0;
-    case MODERATOR = 1;
-    case ADMIN = 2;
+class AccessLevel {
+    public const ANY = -1;
+    public const USER = 0;
+    public const MODERATOR = 1;
+    public const ADMIN = 2;
 }
 
 //=============================================

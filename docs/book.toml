@@ -3,7 +3,7 @@ authors = ["smok1e"]
 language = "en"
 multilingual = false
 src = "src"
-title = "Файловая хранилищя Buttex"
+title = "Файловые хранилишя Buttex"
 
 [output.html]
 additional-css = ["styles/style.css"]

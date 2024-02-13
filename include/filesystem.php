@@ -1,5 +1,9 @@
 <?php
 require_once "database.php";
+require_once "vendor/autoload.php";
+
+use FFMpeg\FFMpeg;
+use FFMpeg\Coordinate\TimeCode;
 
 //=============================================
 
@@ -45,7 +49,7 @@ class Filesystem {
         );
     }
 
-    // Check if or directory exists under specified directory by name
+    // Check if file or directory exists under specified directory by name
     public static function exists(string $name, ?int $parent_directory_id = null) {
         return Database::get_first_row("
                 SELECT id 
@@ -354,6 +358,44 @@ class Filesystem {
     // Get file mime type
     public static function get_file_mime_type(int $file_id): string {
         return mime_content_type(Filesystem::get_real_path($file_id));
+    }
+
+    // Get file preview path 
+    public static function get_file_preview(int $file_id): ?string {
+        $preview_path = Config::STORAGE_THUMBNAILS_DIR . $file_id;
+        if (file_exists($preview_path))
+            return $preview_path;
+
+        $real_path = Filesystem::get_real_path($file_id);
+        $mime_type = Filesystem::get_file_mime_type($file_id);
+        switch (substr($mime_type, 0, strpos($mime_type, '/'))) {
+            case "image":
+                $image = new Imagick($real_path);
+                $image->thumbnailImage(Config::THUMBNAIL_SIZE, 0);
+                $image->writeImage($preview_path);
+                break;
+
+            case "video":
+                $tmp_path = "/tmp/thumbnail_" . $file_id . ".jpg";
+
+                $ffmpeg = FFMpeg::create([
+                    "ffmpeg.binaries" => "/usr/bin/ffmpeg",   
+                    "ffprobe.binaries" => "/usr/bin/ffprobe"
+                ]);
+            
+                $video = $ffmpeg->open($real_path);
+                $video->frame(TimeCode::fromSeconds(0))->save($tmp_path);
+
+                $image = new Imagick($tmp_path);
+                $image->thumbnailImage(Config::THUMBNAIL_SIZE, 0);
+                $image->writeImage($preview_path);
+                break;
+
+            default:
+                return null;
+        }
+
+        return $preview_path;
     }
 }
 //=============================================

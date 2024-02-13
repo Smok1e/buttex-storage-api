@@ -6,11 +6,19 @@ require_once "codes.php";
 class Response {
     public static function raw(string $data, int $status = ResponseCode::OK, string $content_type = "application/json") {
         $length = strlen($data);
+
         header("Content-Type: $content_type");
         header("Content-Length: $length");
         http_response_code($status);
         echo $data;
         
+        die();
+    }
+
+    public static function no_content() {
+        header("Content-Length: 0");
+        http_response_code(ResponseCode::NO_CONTENT);
+
         die();
     }
 
