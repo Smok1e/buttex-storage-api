@@ -11,7 +11,7 @@ class Config {
     public const STORAGE_DATA_DIR = "/var/www/html/storage.buttex.ru/api/data/";
     public const STORAGE_THUMBNAIL_DIR = "/var/www/html/storage.buttex.ru/api/thumbnails/";
     public const THUMBNAIL_SIZE = 128;
-    public const THUMBNAIL_EXT = "jpg";
+    public const THUMBNAIL_EXT = "png";
     public const SERVER_BASE_URL = "https://storage.buttex.ru";
     public const NICKNAME_LIMIT = 32;
 }
