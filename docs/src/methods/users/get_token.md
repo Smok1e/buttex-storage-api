@@ -13,6 +13,6 @@ Access level: **ANY**
 
 ## Returns
 | Value   | Type   | Description                    |
-|---------|--------|--------------------------------| 
+|---------|--------|--------------------------------|
 | token   | String | Token associated with the user |
 | user_id | Int    | ID associated with the user    |

@@ -158,7 +158,7 @@ class Request {
     }
 
     // Ensure that directory exists and user is able to write into it
-    public static function check_directory_ownership(?int $directory_id, AccessLevel $required_access_level = AccessLevel::MODERATOR) {
+    public static function check_directory_ownership(?int $directory_id, int $required_access_level = AccessLevel::MODERATOR) {
         // Null corresponds to the root directory
         if ($directory_id === null)
             return;
@@ -176,7 +176,7 @@ class Request {
     }
 
     // Ensure that file exists and user is able to modify it
-    public static function check_file_ownership(int $file_id, AccessLevel $required_access_level = AccessLevel::MODERATOR) {
+    public static function check_file_ownership(int $file_id, int $required_access_level = AccessLevel::MODERATOR) {
         $owner_id = Filesystem::get_file_owner($file_id);
         if ($owner_id === null) {
             Response::file_not_found();

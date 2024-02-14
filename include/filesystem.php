@@ -7,6 +7,16 @@ use FFMpeg\Coordinate\TimeCode;
 
 //=============================================
 
+enum FilePreviewType {
+    case None;
+    case Cached;
+    case Image;
+    case Video;
+    case OCIF;
+}
+
+//=============================================
+
 class Filesystem {
     // Get directory condition for SQL query
     private static function build_dir_condition(?int $parent_directory_id) {
@@ -360,22 +370,52 @@ class Filesystem {
         return mime_content_type(Filesystem::get_real_path($file_id));
     }
 
-    // Get file preview path 
-    public static function get_file_preview(int $file_id): ?string {
-        $preview_path = Config::STORAGE_THUMBNAILS_DIR . $file_id;
-        if (file_exists($preview_path))
-            return $preview_path;
-
+    // Check what type of preview can be generated for the file
+    public static function get_file_preview_type(int $file_id): FilePreviewType {
         $real_path = Filesystem::get_real_path($file_id);
+        if (file_exists($real_path))
+            return FilePreviewType::Cached;
+
         $mime_type = Filesystem::get_file_mime_type($file_id);
         switch (substr($mime_type, 0, strpos($mime_type, '/'))) {
             case "image":
+                return FilePreviewType::Image;
+                break;
+
+            case "video":
+                return FilePreviewType::Video;
+                break;
+        }
+
+        $file = fopen(FIlesystem::get_real_path($file_id), "rb");
+        $signature = fread($file, 4);
+        fclose($file);
+
+        if ($signature == "OCIF")
+            return FilePreviewType::OCIF;
+
+        return FilePreviewType::None;
+    }
+
+    // Get file preview path 
+    public static function get_file_preview(int $file_id): ?string {
+        $preview_path = Config::STORAGE_THUMBNAIL_DIR . $file_id . "." . Config::THUMBNAIL_EXT;
+        $real_path = Filesystem::get_real_path($file_id);
+
+        switch (self::get_file_preview_type($file_id)) {
+            case FilePreviewType::Cached:
+                return $preview_path;
+            
+            case FilePreviewType::None:
+                return null;
+
+            case FilePreviewType::Image:
                 $image = new Imagick($real_path);
                 $image->thumbnailImage(Config::THUMBNAIL_SIZE, 0);
                 $image->writeImage($preview_path);
                 break;
 
-            case "video":
+            case FilePreviewType::Video:
                 $tmp_path = "/tmp/thumbnail_" . $file_id . ".jpg";
 
                 $ffmpeg = FFMpeg::create([
@@ -391,7 +431,15 @@ class Filesystem {
                 $image->writeImage($preview_path);
                 break;
 
-            default:
+            case FilePreviewType::OCIF:
+                $output = null;
+                $exit_code = null;
+
+                exec("ocif-parser $real_path $preview_path 2>&1", $output, $exit_code);
+                if ($exit_code == 0) {
+                    return $preview_path;
+                }
+
                 return null;
         }
 

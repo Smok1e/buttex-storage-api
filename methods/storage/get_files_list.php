@@ -55,6 +55,7 @@ $files = Database::get_table("
 foreach($files as &$file) {
     $file["size"] = Filesystem::get_file_size($file["id"]);
     $file["type"] = Filesystem::get_file_mime_type($file["id"]);
+    $file["has_preview"] = Filesystem::get_file_preview_type($file["id"]) != FilePreviewType::None? 1: 0;
 }
 
 $directories = Database::get_table("

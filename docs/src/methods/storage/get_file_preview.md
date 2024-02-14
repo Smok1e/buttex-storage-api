@@ -1,4 +1,4 @@
-# get_file_content
+# get_file_preview
 Returns file preview by the given id
 
 URL: `https://storage.buttex.ru/api/storage/get_file_preview`\

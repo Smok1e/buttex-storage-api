@@ -10,6 +10,7 @@ password, etc.
 |-----------------------------------------------|------------------------------------------------|
 | [get_token](users/get_token.md)               | Returns user's access token                    |
 | [get_profile_info](users/get_profile_info.md) | Returns user profile info by the given user id |
+| [get_users_list](users/get_users_list.md)     | Returns the list of users in the system        |
 | [set_nickname](users/set_nickname.md)         | Changes nickname                               |
 | [set_password](users/set_password.md)         | Changes password                               |
 | [set_access_level](users/set_access_level.md) | Changes user's access level                    |

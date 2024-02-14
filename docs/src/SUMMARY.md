@@ -23,6 +23,7 @@
     - [Users methods](methods/users.md)
         - [get_token](methods/users/get_token.md)
         - [get_profile_info](methods/users/get_profile_info.md)
+        - [get_users_list](methods/users/get_users_list.md)
         - [set_nickname](methods/users/set_nickname.md)
         - [set_password](methods/users/set_password.md)
         - [set_access_level](methods/users/set_access_level.md)
