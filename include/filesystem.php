@@ -372,7 +372,6 @@ class Filesystem {
 
     // Check what type of preview can be generated for the file
     public static function get_file_preview_type(int $file_id): FilePreviewType {
-        $real_path = Filesystem::get_real_path($file_id);
         $preview_path = Config::STORAGE_THUMBNAIL_DIR . $file_id . "." . Config::THUMBNAIL_EXT;
 
         if (file_exists($preview_path))
