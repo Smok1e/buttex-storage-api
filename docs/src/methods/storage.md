@@ -14,6 +14,7 @@ upload files, create directories, resolve paths, etc.
 | [set_file_name](storage/set_file_name.md)           | Changes file name                                                   |
 | [set_file_lifetime](storage/set_file_lifetime.md)   | Changes file lifetime                                               |
 | [set_file_hidden](storage/set_file_hidden.md)       | Sets file hidden flag                                               |
+| [set_file_content](storage/set_file_content.md)     | Changes file content                                                |
 | [get_files_list](storage/get_files_list.md)         | Returns list of files and directories under the specified directory |
 | [get_file_content](storage/get_file_content.md)     | Returns file content by the given id or path                        |
 | [get_file_preview](storage/get_file_preview.md)     | Returns file preview by the given id                                |

@@ -13,6 +13,7 @@
         - [set_file_name](methods/storage/set_file_name.md)
         - [set_file_lifetime](methods/storage/set_file_lifetime.md)
         - [set_file_hidden](methods/storage/set_file_hidden.md)
+        - [set_file_content](methods/storage/set_file_content.md)
         - [get_files_list](methods/storage/get_files_list.md)
         - [get_file_content](methods/storage/get_file_content.md)
         - [get_file_preview](methods/storage/get_file_preview.md)

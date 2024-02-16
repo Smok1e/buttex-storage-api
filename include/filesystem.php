@@ -388,7 +388,7 @@ class Filesystem {
                 break;
         }
 
-        $file = fopen(FIlesystem::get_real_path($file_id), "rb");
+        $file = fopen(Filesystem::get_real_path($file_id), "rb");
         $signature = fread($file, 4);
         fclose($file);
 

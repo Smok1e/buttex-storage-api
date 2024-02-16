@@ -11,19 +11,20 @@ Access level: **ANY**
 | file_id   | Int    | Yes      | File id     |
 
 ## Returns
-| Value         | Type          | Description                                  |
-|---------------|---------------|----------------------------------------------| 
-| id            | Int           | Requested file id                            |
-| lifetime      | Int or *null* | File lifetime in seconds                     |
-| name          | String        | File name                                    |
-| directory_id  | Int or *null* | Parent directory id                          |
-| hidden        | Int           | Is file hidden                               |
-| creation_time | Int           | Creatiom timestmap                           |
-| has_preview   | Int           | Can file have [preview](get_file_preview.md) |
-| user_id       | Int           | Owner id                                     |
-| user_name     | String        | Owner name                                   |
-| user_nickname | String        | Owner nickname                               |
-| size          | Int           | File size                                    |
-| type          | String        | File content mime type                       |
-| url           | String        | File url                                     |
-| permanent_url | String        | File permanent url                           |
+| Value             | Type          | Description                                  |
+|-------------------|---------------|----------------------------------------------| 
+| id                | Int           | Requested file id                            |
+| lifetime          | Int or *null* | File lifetime in seconds                     |
+| name              | String        | File name                                    |
+| directory_id      | Int or *null* | Parent directory id                          |
+| hidden            | Int           | Is file hidden                               |
+| creation_time     | Int           | Creatiom timestamp                           |
+| modification_time | Int           | Modification timestamp                       |
+| has_preview       | Int           | Can file have [preview](get_file_preview.md) |
+| user_id           | Int           | Owner id                                     |
+| user_name         | String        | Owner name                                   |
+| user_nickname     | String        | Owner nickname                               |
+| size              | Int           | File size                                    |
+| type              | String        | File content mime type                       |
+| url               | String        | File url                                     |
+| permanent_url     | String        | File permanent url                           |

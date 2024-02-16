@@ -37,6 +37,7 @@ $files = Database::get_table("
         SELECT 
             files.id as `id`,
             files.lifetime as `lifetime`,
+            UNIX_TIMESTAMP(files.modification_time) as `modification_time`,
             $common_fields
         FROM 
             files

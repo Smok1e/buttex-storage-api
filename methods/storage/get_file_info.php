@@ -17,6 +17,7 @@ $file_info = Database::get_first_row("
             filesystem_entries.directory_id as `directory_id`,
             filesystem_entries.hidden as `hidden`,
             UNIX_TIMESTAMP(filesystem_entries.creation_time) as `creation_time`,
+            UNIX_TIMESTAMP(files.modification_time) as `modification_time`,
             users.id as `user_id`,
             users.name as `user_name`,
             users.nickname as `user_nickname`

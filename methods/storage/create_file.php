@@ -31,7 +31,7 @@ $filesystem_entry_id = Filesystem::create_entry(
 $file_id = Filesystem::create_file($filesystem_entry_id, $request_lifetime);
 
 // Receive file
-if (!move_uploaded_file($request_file["tmp_name"], Config::STORAGE_DATA_DIR . $file_id)) {
+if (!move_uploaded_file($request_file["tmp_name"], Filesystem::get_real_path($file_id))) {
     Filesystem::delete_entry($filesystem_entry_id);
     Response::error("unable to accept file ($request_file[error])");
 }
