@@ -26,6 +26,10 @@ rename($tmp_path, Filesystem::get_real_path($request_file_id));
 // Update file modification time
 Database::execute("UPDATE files SET modification_time = CURRENT_TIMESTAMP() WHERE id = ?", "i", $request_file_id);
 
-Response::ok();
+Response::set([
+    "file_id" => $request_file_id,
+    "file_url" => Filesystem::get_file_url($request_file_id),
+    "file_premanent_url" => Filesystem::get_file_permanent_url($request_file_id)
+]);
 
 //=============================================
