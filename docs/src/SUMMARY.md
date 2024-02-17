@@ -28,6 +28,7 @@
         - [get_users_list](methods/users/get_users_list.md)
         - [set_nickname](methods/users/set_nickname.md)
         - [set_password](methods/users/set_password.md)
+        - [set_avatar_url](methods/users/set_avatar_url.md)
         - [set_access_level](methods/users/set_access_level.md)
         - [create_user](methods/users/create_user.md)
         - [delete_user](methods/users/delete_user.md)

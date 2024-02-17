@@ -19,7 +19,7 @@ Access level: **USER**
 
 ## Returns
 | Value              | Type    | Description                                 |
-|--------------------|---------|---------------------------------------------| 
+|--------------------|---------|---------------------------------------------|
 | file_id            | Int     | Uploaded file ID                            |
 | file_url           | String  | Uploaded file URL                           |
 | file_premanent_url | String  | Permanent URL (not affected by file rename) |

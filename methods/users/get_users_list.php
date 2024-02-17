@@ -11,6 +11,7 @@ Response::set(Database::get_table("
             id, 
             name, 
             nickname,
+            avatar_url,
             UNIX_TIMESTAMP(timestamp) as `timestamp`,
             access_level
         FROM 

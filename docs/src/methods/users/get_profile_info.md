@@ -11,13 +11,14 @@ Access level: **ANY**
 | user_id   | Int    | Yes      | User ID     |
 
 ## Returns
-| Value        | Type   | Description       |
-|--------------|--------|-------------------| 
-| id           | Int    | User ID           |
-| name         | String | User name         |
-| nickname     | String | User nickname     |
-| access_level | Int    | User access level |
-| token*       | String | User token        |
+| Value        | Type             | Description       |
+|--------------|------------------|-------------------| 
+| id           | Int              | User ID           |
+| name         | String           | User name         |
+| nickname     | String           | User nickname     |
+| access_level | Int              | User access level |
+| avatar_url   | String or *null* | User avatar URL   |
+| token*       | String           | User token        |
 
 > ### Remarks
 > The `token` field will be returned only for users with access 

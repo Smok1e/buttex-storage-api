@@ -9,9 +9,10 @@ Request::access_level(AccessLevel::ADMIN);
 $request_username     = Request::not_empty("user_name");
 $request_nickname     = Request::not_empty("user_nickname");
 $request_password     = Request::not_empty("user_password");
-$reqeust_access_level = AccessLevel::tryFrom(Request::query_int("user_access_level"));
+$reqeust_access_level = Request::query_int("user_access_level");
+$request_avatar_url   = Request::query_param_or_null("user_avatar_url");
 
-if ($reqeust_access_level === null || $reqeust_access_level == AccessLevel::ANY)
+if (!(AccessLevel::USER <= $reqeust_access_level && $reqeust_access_level <= AccessLevel::ADMIN))
     Response::error("invalid access level value", ResponseCode::BAD_REQUEST);
 
 if (Database::get_first_row("SELECT id FROM users WHERE name = ?", "s", $request_username) !== null)
@@ -19,14 +20,15 @@ if (Database::get_first_row("SELECT id FROM users WHERE name = ?", "s", $request
 
 $user_id = Database::execute("
         INSERT 
-            INTO users(name, nickname, password, token, access_level)
+            INTO users(name, nickname, password, avatar_url, token, access_level)
         VALUES(?, ?, SHA2(?, 256), UUID(), ?)
     ",
-    "sssi",
+    "ssssi",
     $request_username,
     $request_nickname,
     $request_password,
-    $reqeust_access_level->value
+    $request_avatar_url,
+    $reqeust_access_level
 );
 
 Response::set(Database::get_first_row("SELECT id, token FROM users WHERE id = ?", "i", $user_id));

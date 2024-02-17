@@ -13,6 +13,7 @@ password, etc.
 | [get_users_list](users/get_users_list.md)     | Returns the list of users in the system        |
 | [set_nickname](users/set_nickname.md)         | Changes nickname                               |
 | [set_password](users/set_password.md)         | Changes password                               |
+| [set_avatar_url](users/set_avatar_url.md)     | Changes user's avatar URL                      |
 | [set_access_level](users/set_access_level.md) | Changes user's access level                    |
 | [create_user](users/create_user.md)           | Creates new user                               |
 | [delete_user](users/delete_user.md)           | Permanently deletes user                       |

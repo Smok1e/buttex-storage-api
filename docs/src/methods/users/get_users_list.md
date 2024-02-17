@@ -11,10 +11,11 @@ This method does not expect any query parameters
 ## Returns
 This method returns an array of objects; Each returned object has the following structure:
 
-| Value        | Type   | Description        |
-|--------------|--------|--------------------|
-| id           | Int    | User ID            |
-| name         | String | User name          |
-| nickname     | String | User nickname      |
-| timestamp    | Int    | User creation time |
-| access_level | Int    | User access level  |
+| Value        | Type          | Description        |
+|--------------|---------------|--------------------|
+| id           | Int           | User ID            |
+| name         | String        | User name          |
+| nickname     | String        | User nickname      |
+| timestamp    | Int           | User creation time |
+| avatar_url   | Int or *null* | User avatar URL    |
+| access_level | Int           | User access level  |

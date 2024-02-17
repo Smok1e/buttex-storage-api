@@ -6,7 +6,7 @@ require_once "request.php";
 Request::method("GET");
 Request::access_level(AccessLevel::ANY);
 
-$request_fields = "id, name, nickname, access_level";
+$request_fields = "id, name, nickname, avatar_url, access_level";
 if (Request::$access_level >= AccessLevel::ADMIN)
     $request_fields .= ", token";
 
