@@ -11,7 +11,7 @@ Access level: **ADMIN**
 | user_name         | String | Yes      | Username        |
 | user_nickname     | String | Yes      | Nickname        |
 | user_password     | String | Yes      | Password        |
-| user_avatar_url   | Srting | No       | User avatar URL |
+| user_avatar_url   | String | No       | User avatar URL |
 | user_access_level | Int    | Yes      | Access level    |
 
 ## Returns

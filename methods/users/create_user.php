@@ -21,7 +21,7 @@ if (Database::get_first_row("SELECT id FROM users WHERE name = ?", "s", $request
 $user_id = Database::execute("
         INSERT 
             INTO users(name, nickname, password, avatar_url, token, access_level)
-        VALUES(?, ?, SHA2(?, 256), UUID(), ?)
+        VALUES(?, ?, SHA2(?, 256), ?, UUID(), ?)
     ",
     "ssssi",
     $request_username,

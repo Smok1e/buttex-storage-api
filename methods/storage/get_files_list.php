@@ -6,9 +6,11 @@ require_once "request.php";
 Request::method("GET");
 Request::access_level(AccessLevel::ANY);
 
-$criteria = Request::param_passed("parent_directory_id")
-    ? "directory_id = " . Request::query_int("parent_directory_id")
-    : "directory_id IS NULL";
+$parent_dir_id = Request::query_int_or_null("parent_directory_id");
+
+$criteria = $parent_dir_id === null
+    ? "directory_id IS NULL"
+    : "directory_id = " . $parent_dir_id;
 
 if (Request::$user_id !== null) {
     if (Request::$access_level < AccessLevel::ADMIN) {
@@ -32,6 +34,8 @@ $common_fields = "
     users.name as `user_name`,
     users.nickname as `user_nickname`
 ";
+
+$directory_path = Filesystem::resolve_directory_id($parent_dir_id);
 
 $files = Database::get_table("
         SELECT 
@@ -57,6 +61,8 @@ foreach($files as &$file) {
     $file["size"] = Filesystem::get_file_size($file["id"]);
     $file["type"] = Filesystem::get_file_mime_type($file["id"]);
     $file["has_preview"] = Filesystem::get_file_preview_type($file["id"]) != FilePreviewType::None? 1: 0;
+    $file["url"] = Config::SERVER_BASE_URL . "/data" . $directory_path . "/" . $file["name"];
+    $file["permanent_url"] = Filesystem::get_file_permanent_url($file["id"]);
 }
 
 $directories = Database::get_table("

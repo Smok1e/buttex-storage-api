@@ -29,6 +29,8 @@ Each array item has all of the following fields:
 | user_id           | Int           | Owner id                                                        |
 | user_name         | String        | Owner username                                                  |
 | user_nickname     | String        | Owner nickname                                                  |
+| url               | String        | File url (*only for files*)                                     |
+| permanent_url     | String        | File permanent url (*only for files*)                           |
 
 > ### Remarks
 > - If `parent_directory_id` parameter is not passed, then method will return
