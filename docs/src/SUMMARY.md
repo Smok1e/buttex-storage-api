@@ -24,6 +24,7 @@
         - [get_file_path](methods/storage/get_file_path.md)
         - [get_directory_path](methods/storage/get_directory_path.md)
     - [Users methods](methods/users.md)
+        - [validate_token](methods/users/validate_token.md)
         - [get_token](methods/users/get_token.md)
         - [get_profile_info](methods/users/get_profile_info.md)
         - [get_users_list](methods/users/get_users_list.md)

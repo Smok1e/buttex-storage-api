@@ -8,6 +8,7 @@ password, etc.
 
 | Method                                        | Description                                    |
 |-----------------------------------------------|------------------------------------------------|
+| [validate_token](users/validate_token.md)     | Check if user token is valid                   |
 | [get_token](users/get_token.md)               | Returns user's access token                    |
 | [get_profile_info](users/get_profile_info.md) | Returns user profile info by the given user id |
 | [get_users_list](users/get_users_list.md)     | Returns the list of users in the system        |
