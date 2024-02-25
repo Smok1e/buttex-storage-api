@@ -9,5 +9,5 @@ Access level: **USER**
 This method does not require any query parameters
 
 ## Returns
-If token passed in `Authorization` header (see [authorization](../../users/authorization.md) is valid,
+If token passed in `Authorization` header (see [authorization](../../users/authorization.md)) is valid,
 then this method will no return any values; Otherwise, this method will return an error message with status code 401.
