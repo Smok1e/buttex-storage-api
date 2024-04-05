@@ -15,6 +15,7 @@
         - [set_file_hidden](methods/storage/set_file_hidden.md)
         - [set_file_content](methods/storage/set_file_content.md)
         - [set_directory_name](methods/storage/set_directory_name.md)   
+        - [set_directory_hidden](methods/storage/set_directory_hidden.md)
         - [get_files_list](methods/storage/get_files_list.md)
         - [get_file_content](methods/storage/get_file_content.md)
         - [get_file_preview](methods/storage/get_file_preview.md)
