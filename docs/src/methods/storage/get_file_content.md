@@ -6,10 +6,11 @@ Method: **GET**\
 Access level: **ANY**
 
 ## Query
-| Parameter | Type   | Required | Description                  |
-|-----------|--------|----------|------------------------------|
-| file_id   | Int    | No*      | Requested file id            |
-| path      | String | No*      | Requested file absoulte path |
+| Parameter | Type   | Required | Description                                                                    |
+|-----------|--------|----------|--------------------------------------------------------------------------------|
+| file_id   | Int    | No*      | Requested file id                                                              |
+| path      | String | No*      | Requested file absoulte path                                                   |
+| download  | Int    | No       | If set to 1, Content-Disposition is set to *attachment*, otherwise to *inline* |
 
 ## Returns
 Requested file content

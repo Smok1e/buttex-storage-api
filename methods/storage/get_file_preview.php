@@ -18,7 +18,7 @@ if (!$file_id)
 
 $preview_path = Filesystem::get_file_preview($file_id);
 if ($preview_path)
-    Response::file($preview_path);
+    Response::file($preview_path, basename($preview_path));
 
 Response::no_content();
 

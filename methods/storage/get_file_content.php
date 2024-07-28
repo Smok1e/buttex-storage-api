@@ -32,6 +32,28 @@ else {
 if (!$file_id)
     Response::raw("File not found", ResponseCode::NOT_FOUND, "text/plain");
 
-Response::file(Config::STORAGE_DATA_DIR . $file_id);
+$filename = Database::get_first_cell("
+        SELECT 
+            filesystem_entries.name 
+
+        FROM 
+            files 
+            LEFT JOIN filesystem_entries 
+            ON filesystem_entries.id = files.filesystem_entry_id 
+            
+        WHERE 
+            files.id = ?
+    ", 
+    "i", 
+    $file_id
+);
+
+Response::file(
+    Config::STORAGE_DATA_DIR . $file_id, 
+    $filename, 
+    Request::query_int("download", 0) == 1
+        ? "attachment"
+        : "inline"
+);
 
 //=============================================

@@ -42,15 +42,20 @@ class Response {
         self::set();
     }
 
-    public static function file(string $filename) {
-        $size = filesize($filename);
+    public static function file(string $path, string $filename, string $disposition = "inline") {
+        $size = filesize($path);
         header("Cache-Control: public");
-        header("Content-Type: " . mime_content_type($filename));
+        header("Content-Type: " . mime_content_type($path));
         header("Content-Transfer-Encoding: Binary");
-        header("Content-Length: " . filesize($filename));
+        header("Content-Length: " . filesize($path));
         header("Accept-Ranges: bytes");
         header("Content-Range: bytes $size");
-        readfile($filename);
+
+        // If Content-Disposition is set to inline, the browser will try to open the file;
+        // Otherwise, if Content-Disposition is set to attacnmeht, the browser will download the file with specified filename
+        header("Content-Disposition: $disposition; filename='$filename'");
+
+        readfile($path);
 
         die();
     }

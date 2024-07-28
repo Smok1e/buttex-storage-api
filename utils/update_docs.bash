@@ -1,0 +1,3 @@
+pushd docs
+./build
+popd

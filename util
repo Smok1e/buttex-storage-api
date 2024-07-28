@@ -1,10 +1,36 @@
 #!/bin/bash
 
-dir="$(dirname -- "$(readlink -f "${BASH_SOURCE}")")";
+api_root="$(dirname -- $(readlink -f ${BASH_SOURCE}))";
+scripts_root="$api_root/utils"
 
-if [ $# -eq 0 ]
-then
-    echo "No arguments supplied";
-else
-	php -d include_path=$dir/include/ $dir/utils/$1.php;
+if [ $# -eq 0 ]; then
+    echo "No arguments supplied"
+	exit 1
 fi
+
+# Find all matching files
+script_path_variants=( $(find "$scripts_root/$1".*) )
+
+if [ ${#script_path_variants[@]} -gt 1 ]; then
+	echo "More than one scripts with such name exists"
+	exit 1
+fi
+
+script_path="${script_path_variants[0]}"
+
+# Extract extension
+script_ext="${script_path##*.}"
+
+case $script_ext in
+	php)
+		php -d "include_path=$api_root/include" "$script_path"
+		;;
+
+	bash)
+		bash "$script_path"
+		;;
+
+	*)
+		echo "Unknown script extension ($script_ext)"
+		;;
+esac

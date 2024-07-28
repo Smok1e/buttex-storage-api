@@ -21,6 +21,7 @@ Access level: **USER**
 | file_id            | Int     | Uploaded file ID                            |
 | file_url           | String  | Uploaded file URL                           |
 | file_premanent_url | String  | Permanent URL (not affected by file rename) |
+| 
 
 > ### Remarks
 > - Only owner of file and users with access **MODERATOR** or higher can modify
