@@ -430,6 +430,7 @@ class Filesystem {
                 $image = new Imagick($tmp_path);
                 $image->thumbnailImage(Config::THUMBNAIL_SIZE, 0);
                 $image->writeImage($preview_path);
+
                 break;
 
             case FilePreviewType::OCIF:
