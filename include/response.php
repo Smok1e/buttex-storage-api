@@ -55,6 +55,10 @@ class Response {
         // Otherwise, if Content-Disposition is set to attacnmeht, the browser will download the file with specified filename
         header("Content-Disposition: $disposition; filename=$filename");
 
+        // Disable output buffering to prevent memory issues when sending large files
+        // TODO: Implement better file sending mechanism that does not involve php to actually read the content
+        ob_end_flush();
+
         readfile($path);
 
         die();
