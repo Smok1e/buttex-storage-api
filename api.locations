@@ -1,0 +1,41 @@
+# Buttex storage API nginx config
+
+location /api/ {
+	# Documentation
+	location /api/docs {
+		# Disable annoying page caching
+		add_header Cache-Control 'no-store, no-cache';
+
+		alias /var/buttex/storage/api/docs/book/;
+		index index.html;
+	}
+
+	# Internal static content
+	location /api/internal {
+		alias /var/buttex/storage/;
+		internal;
+	}
+
+	# Allow CORS
+    add_header 'Access-Control-Allow-Origin' '*' always;
+    add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+	add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization' always;
+	add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range' always;
+
+	# Just send CORS headers when preflight request is received
+	if ($request_method = 'OPTIONS') {
+		return 204;
+	}
+
+	# Redirect all api requests to methods directory
+	# /api/govno => /api/methods/govno.php
+	rewrite ^/api/(.+)$ /$1.php break;
+
+	root /var/buttex/storage/api/methods/;
+
+	include fastcgi.conf;
+
+	# This line sets php include path to api include directory
+	fastcgi_param PHP_VALUE "include_path=/var/buttex/storage/api/include/";
+	fastcgi_pass unix:/var/run/php-fpm/php-fpm.sock;
+}

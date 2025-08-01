@@ -12,7 +12,7 @@ $database_files = Database::get_column(
 );
 
 $storage_files = array_diff(
-    scandir(Config::STORAGE_DATA_DIR), [".", ".."]
+    scandir(Config::STORAGE_BASE_DIR . Config::STORAGE_DATA_DIR), [".", ".."]
 );
 
 $remove_from_database = array_diff($database_files, $storage_files );

@@ -84,7 +84,7 @@ class Filesystem {
 
     // Get real file path by id
     public static function get_real_path(int $file_id): string {
-        return Config::STORAGE_DATA_DIR . $file_id;
+        return Config::STORAGE_BASE_DIR . Config::STORAGE_DATA_DIR . $file_id;
     }
 
     // Delete file (both database and physically)
@@ -372,9 +372,9 @@ class Filesystem {
 
     // Check what type of preview can be generated for the file
     public static function get_file_preview_type(int $file_id): FilePreviewType {
-        $preview_path = Config::STORAGE_THUMBNAIL_DIR . $file_id . "." . Config::THUMBNAIL_EXT;
+        $preview_real_path = Config::STORAGE_BASE_DIR . Config::STORAGE_THUMBNAIL_DIR . $file_id . "." . Config::THUMBNAIL_EXT;
 
-        if (file_exists($preview_path))
+        if (file_exists($preview_real_path))
             return FilePreviewType::Cached;
 
         $mime_type = Filesystem::get_file_mime_type($file_id);
@@ -392,8 +392,9 @@ class Filesystem {
         $signature = fread($file, 4);
         fclose($file);
 
-        if ($signature == "OCIF")
+        if ($signature == "OCIF") {
             return FilePreviewType::OCIF;
+        }
 
         return FilePreviewType::None;
     }
@@ -401,7 +402,8 @@ class Filesystem {
     // Get file preview path 
     public static function get_file_preview(int $file_id): ?string {
         $preview_path = Config::STORAGE_THUMBNAIL_DIR . $file_id . "." . Config::THUMBNAIL_EXT;
-        $real_path = Filesystem::get_real_path($file_id);
+        $preview_real_path = Config::STORAGE_BASE_DIR . $preview_path;
+        $file_real_path = Filesystem::get_real_path($file_id);
 
         switch (self::get_file_preview_type($file_id)) {
             case FilePreviewType::Cached:
@@ -411,9 +413,9 @@ class Filesystem {
                 return null;
 
             case FilePreviewType::Image:
-                $image = new Imagick($real_path);
+                $image = new Imagick($file_real_path);
                 $image->thumbnailImage(Config::THUMBNAIL_SIZE, 0);
-                $image->writeImage($preview_path);
+                $image->writeImage($preview_real_path);
                 break;
 
             case FilePreviewType::Video:
@@ -424,12 +426,12 @@ class Filesystem {
                     "ffprobe.binaries" => "/usr/bin/ffprobe"
                 ]);
             
-                $video = $ffmpeg->open($real_path);
+                $video = $ffmpeg->open($file_real_path);
                 $video->frame(TimeCode::fromSeconds(0))->save($tmp_path);
 
                 $image = new Imagick($tmp_path);
                 $image->thumbnailImage(Config::THUMBNAIL_SIZE, 0);
-                $image->writeImage($preview_path);
+                $image->writeImage($preview_real_path);
 
                 break;
 
@@ -437,7 +439,7 @@ class Filesystem {
                 $output = null;
                 $exit_code = null;
 
-                exec("ocif-parser $real_path $preview_path 2>&1", $output, $exit_code);
+                exec("ocif-parser $file_real_path $preview_path 2>&1", $output, $exit_code);
                 if ($exit_code == 0) {
                     return $preview_path;
                 }

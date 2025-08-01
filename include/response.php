@@ -42,25 +42,17 @@ class Response {
         self::set();
     }
 
-    public static function file(string $path, string $filename, string $disposition = "inline") {
-        $size = filesize($path);
+    public static function file(string $relpath, string $filename, string $disposition = "inline") {
         header("Cache-Control: public");
-        header("Content-Type: " . mime_content_type($path));
+        header("Content-Type: " . mime_content_type(Config::STORAGE_BASE_DIR . $relpath));
         header("Content-Transfer-Encoding: Binary");
-        header("Content-Length: " . filesize($path));
         header("Accept-Ranges: bytes");
-        header("Content-Range: bytes $size");
 
         // If Content-Disposition is set to inline, the browser will try to open the file;
         // Otherwise, if Content-Disposition is set to attacnmeht, the browser will download the file with specified filename
         header("Content-Disposition: $disposition; filename=$filename");
-
-        // Disable output buffering to prevent memory issues when sending large files
-        // TODO: Implement better file sending mechanism that does not involve php to actually read the content
-        ob_end_flush();
-
-        readfile($path);
-
+        header("X-Accel-Redirect: /api/internal/" . $relpath);
+        
         die();
     }
 
