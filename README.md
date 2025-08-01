@@ -1,1 +1,1 @@
-[https://storage.buttex.ru](Buttex storage) backend ([docs](https://storage.buttex.ru/api/docs))
+[Buttex storage](https://storage.buttex.ru) backend ([docs](https://storage.buttex.ru/api/docs))
