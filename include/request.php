@@ -17,6 +17,11 @@ class Request {
             Response::error("expected $method request instead of " . $_SERVER["REQUEST_METHOD"], ResponseCode::METHOD_NOT_ALLOWED);
     }
 
+    // Returns base url (e. g. https://storage.buttex.ru)
+    public static function base_url(): string {
+        return $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['SERVER_NAME'];
+    }
+
     // Returns true if such param exists
     public static function param_passed(string $key): bool {
         return array_key_exists($key, $_GET);

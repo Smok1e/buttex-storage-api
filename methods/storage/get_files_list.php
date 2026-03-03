@@ -61,7 +61,7 @@ foreach($files as &$file) {
     $file["size"] = Filesystem::get_file_size($file["id"]);
     $file["type"] = Filesystem::get_file_mime_type($file["id"]);
     $file["has_preview"] = Filesystem::get_file_preview_type($file["id"]) != FilePreviewType::None? 1: 0;
-    $file["url"] = Config::SERVER_BASE_URL . "/data" . $directory_path . "/" . $file["name"];
+    $file["url"] = Request::base_url() . "/data" . $directory_path . "/" . $file["name"];
     $file["permanent_url"] = Filesystem::get_file_permanent_url($file["id"]);
 }
 

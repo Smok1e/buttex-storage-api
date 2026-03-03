@@ -13,7 +13,6 @@ class Config {
     public const STORAGE_THUMBNAIL_DIR = "thumbnails/";
     public const THUMBNAIL_SIZE = 128;
     public const THUMBNAIL_EXT = "png";
-    public const SERVER_BASE_URL = "https://storage.buttex.ru";
     public const NICKNAME_LIMIT = 32;
 }
 

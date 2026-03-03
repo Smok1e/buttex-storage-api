@@ -1,5 +1,7 @@
 <?php
 require_once "database.php";
+require_once "request.php";
+require_once "response.php";
 require_once "vendor/autoload.php";
 
 use FFMpeg\FFMpeg;
@@ -352,12 +354,12 @@ class Filesystem {
 
     // Get file URL
     public static function get_file_url(int $file_id): string {
-        return Config::SERVER_BASE_URL . "/data" . Filesystem::resolve_file_id($file_id);
+        return Request::base_url() . "/data" . Filesystem::resolve_file_id($file_id);
     }
 
     // Get file permanent URL
     public static function get_file_permanent_url(int $file_id): string {
-        return Config::SERVER_BASE_URL . "/permanent/" . $file_id;
+        return Request::base_url() . "/permanent/" . $file_id;
     }
 
     // Get file size in bytes
@@ -439,9 +441,9 @@ class Filesystem {
                 $output = null;
                 $exit_code = null;
 
-                exec("ocif-parser $file_real_path $preview_path 2>&1", $output, $exit_code);
+                exec("ocif-parser $file_real_path $preview_real_path 2>&1", $output, $exit_code);
                 if ($exit_code == 0) {
-                    return $preview_path;
+                    return $preview_real_path;
                 }
 
                 return null;
