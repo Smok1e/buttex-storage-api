@@ -75,6 +75,9 @@ $real_file_path = Filesystem::get_real_path($file_id);
 if (!rename($merged_path, $real_file_path))
     Request::failure("Failed to rename $merged_path into $real_file_path");
 
+// Deleting upload dir
+Filesystem::delete_host_directory($upload_path);
+
 // Deleting upload from DB
 Filesystem::delete_upload($request_upload_id);
 

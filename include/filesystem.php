@@ -497,5 +497,28 @@ class Filesystem {
             $upload_id
         );
     }
+
+    public static function delete_host_directory(string $path): void {
+        if (!is_dir($path))
+            return;
+
+        $objects = scandir($path);
+
+        foreach ($objects as $object) {
+            if ($object == '.' || $object == '..')
+                continue;
+
+            $objectPath = $path . '/' . $object;
+
+            if (is_dir($objectPath)) {
+                self::delete_host_directory($objectPath);
+            }
+            else {
+                unlink ($objectPath);
+            }
+        }
+
+        rmdir($path);
+    }
 }
 //=============================================
