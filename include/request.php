@@ -193,6 +193,20 @@ class Request {
         if ($owner_id != self::$user_id)
             Response::error("you are not able to modify requested file", ResponseCode::FORBIDDEN);
     }
+
+    // Ensure that user with such id exists
+    public static function check_user_id(int $user_id): int {
+        $user_exists = Database::get_first_cell(
+            "SELECT EXISTS(SELECT id FROM users WHERE id = ?)", 
+            "i", 
+            $user_id
+        );
+
+        if ($user_exists !== 1)
+            Response::no_such_user();
+
+        return $user_id;
+    }
 }
 
 //=============================================

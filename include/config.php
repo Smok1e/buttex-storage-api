@@ -10,6 +10,7 @@ class Config {
     public const DATABASE_PORT = 3306;
     public const STORAGE_BASE_DIR = "/var/buttex/storage/";
     public const STORAGE_DATA_DIR = "data/";
+    public const STORAGE_UPLOADS_DIR = "uploads/";
     public const STORAGE_THUMBNAIL_DIR = "thumbnails/";
     public const THUMBNAIL_SIZE = 128;
     public const THUMBNAIL_EXT = "png";
