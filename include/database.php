@@ -7,7 +7,7 @@ require_once "response.php";
 class Database {
     static mysqli $connection;
 
-	private static function prepare(string $query, ...$args) {
+	private static function prepare_and_execute(string $query, ...$args) {
 		if (!$statement = self::$connection->prepare($query))
             Response::database_error();
 
@@ -22,13 +22,13 @@ class Database {
 
     // Execute statement
 	public static function execute(...$args): int {
-		self::prepare(...$args)->close();
+		self::prepare_and_execute(...$args)->close();
         return self::$connection->insert_id;
 	}
 
     // Get table
 	public static function get_table(...$args): array {
-		$statement = self::prepare(...$args);
+		$statement = self::prepare_and_execute(...$args);
 		$mysqliResult = $statement->get_result();
 
 		if (!$mysqliResult)

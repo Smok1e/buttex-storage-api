@@ -50,7 +50,7 @@ class Response {
 
         // If Content-Disposition is set to inline, the browser will try to open the file;
         // Otherwise, if Content-Disposition is set to attacnmeht, the browser will download the file with specified filename
-        header("Content-Disposition: $disposition; filename=$filename");
+        header("Content-Disposition: $disposition; filename=\"$filename\"");
         header("X-Accel-Redirect: /api/internal/" . $relpath);
         
         die();

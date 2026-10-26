@@ -14,13 +14,13 @@ Database::execute("
         UPDATE 
             users 
         SET 
-            nickname = ? 
+            access_level = ? 
         WHERE 
             id = ?
     ", 
     "si",
-    strip_tags($new_nickname),
-    $access_level
+    $access_level,
+    Request::check_user_id(Request::query_int("user_id"))
 );
 
 Response::ok();

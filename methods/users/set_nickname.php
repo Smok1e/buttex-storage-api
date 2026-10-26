@@ -11,7 +11,7 @@ if (Request::param_passed("user_id")) {
     if (Request::$access_level < AccessLevel::ADMIN) 
         Response::error("admin access level is required to set nickname by user id", ResponseCode::FORBIDDEN);
 
-    $user_id = Request::query_int("user_id");
+    $user_id = Request::check_user_id(Request::query_int("user_id"));
 }
 
 $new_nickname = Request::not_empty("new_nickname");

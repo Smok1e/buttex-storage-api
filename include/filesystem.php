@@ -451,5 +451,80 @@ class Filesystem {
 
         return $preview_path;
     }
+
+    // TODO: write docs by your own hands
+    public static function get_upload_path(int $upload_id): string {
+        return Config::STORAGE_BASE_DIR . Config::STORAGE_UPLOADS_DIR . $upload_id . '/';
+    }
+
+    public static function create_upload(int $user_id, string $file_name, int $chunk_count): int {
+        $upload_id = Database::execute(
+            '
+                INSERT INTO uploads (user_id, file_name, chunk_count)
+                VALUES (?, ?, ?)
+            ',
+            'isi',
+            $user_id,
+            $file_name,
+            $chunk_count
+        );
+
+        // Creating upload dir
+        $upload_path = self::get_upload_path($upload_id);
+
+        if (!mkdir($upload_path))
+            Response::error("Unable to create directory \"$upload_path\" for upload with ID $upload_id");
+
+        return $upload_id;
+    }
+
+    public static function get_upload(int $upload_id): array {
+        return Database::get_first_row(
+            '
+                SELECT * FROM uploads
+                WHERE id = ?
+                LIMIT 1
+            ',
+            'i',
+            $upload_id
+        );
+    }
+
+    public static function delete_upload(int $upload_id): void {
+        // Deleting upload in DB
+        Database::execute(
+            'DELETE FROM uploads WHERE id = ?',
+            'i',
+            $upload_id
+        );
+
+        // Deleting upload dir
+        $upload_path = self::get_upload_path($upload_id);
+
+        self::delete_host_directory($upload_path);
+    }
+
+    public static function delete_host_directory(string $path): void {
+        if (!is_dir($path))
+            return;
+
+        $objects = scandir($path);
+
+        foreach ($objects as $object) {
+            if ($object == '.' || $object == '..')
+                continue;
+
+            $objectPath = $path . '/' . $object;
+
+            if (is_dir($objectPath)) {
+                self::delete_host_directory($objectPath);
+            }
+            else {
+                unlink($objectPath);
+            }
+        }
+
+        rmdir($path);
+    }
 }
 //=============================================

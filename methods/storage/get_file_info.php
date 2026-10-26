@@ -20,7 +20,8 @@ $file_info = Database::get_first_row("
             UNIX_TIMESTAMP(files.modification_time) as `modification_time`,
             users.id as `user_id`,
             users.name as `user_name`,
-            users.nickname as `user_nickname`
+            users.nickname as `user_nickname`,
+            users.avatar_url as `user_avatar_url`
 
         FROM 
             files
