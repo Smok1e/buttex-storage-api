@@ -18,7 +18,7 @@ $upload = Filesystem::get_upload($request_upload_id);
 if ($upload === null)
     Response::error("Upload with id $request_upload_id doesn't exist");
 
-$upload_path = Filesystem::get_uploads_path() . $request_upload_id . '/';
+$upload_path = Filesystem::get_upload_path($request_upload_id);
 
 // Checking if all chunk exist & merge is possible
 for ($chunk_index = 0; $chunk_index < $upload['chunk_count']; $chunk_index++) {
@@ -33,28 +33,18 @@ $merged_path = $upload_path . 'merged';
 $merged_stream = fopen($merged_path, 'w');
 
 if (!$merged_stream)
-    Response::error("Failed to open merged file stream: $merged_stream");
+    Response::error("Failed to open merged file for writing \"$merged_path\"");
 
 for ($chunk_index = 0; $chunk_index < $upload['chunk_count']; $chunk_index++) {
     $chunk_path = $upload_path . $chunk_index;
 
     // Copying chunk contents into merged file
     $chunk_stream = fopen($chunk_path, 'r');
-
-    if (!$chunk_stream) {
-        fclose($merged_stream);
-        Response::error("Failed to open chunk file stream: $chunk_stream");
-    }
-
     stream_copy_to_stream($chunk_stream, $merged_stream);
-
     fclose($chunk_stream);
 
-    // Deleting chunk file
-    if (!unlink($chunk_path)) {
-        fclose($merged_stream);
-        Response::error("Failed to delete chunk file: $chunk_path");
-    }
+    // Deleting chunk file to save some disk space
+    unlink($chunk_path);
 }
 
 fclose($merged_stream);
@@ -73,10 +63,7 @@ $file_id = Filesystem::create_file($filesystem_entry_id, $request_lifetime);
 $real_file_path = Filesystem::get_real_path($file_id);
 
 if (!rename($merged_path, $real_file_path))
-    Request::failure("Failed to rename $merged_path into $real_file_path");
-
-// Deleting upload dir
-Filesystem::delete_host_directory($upload_path);
+    Request::failure("Failed to rename \"$merged_path\" into \"$real_file_path\"");
 
 // Deleting upload from DB
 Filesystem::delete_upload($request_upload_id);

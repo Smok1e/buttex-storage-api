@@ -22,7 +22,7 @@ if ($chunk_index >= $upload['chunk_count'])
     Request::error('Chunk index ' . $chunk_index . ' >= expected chunk count ' . $upload['chunk_count']);
 
 // Moving temporary file to upload chunk path
-$chunk_path = Filesystem::get_uploads_path() . $upload_id . '/' . $chunk_index;
+$chunk_path = Filesystem::get_upload_path($upload_id) . $chunk_index;
 
 if (!move_uploaded_file($file["tmp_name"], $chunk_path))
     Request::failure("Failed to move uploaded file to \"$chunk_path\"");

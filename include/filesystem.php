@@ -453,8 +453,8 @@ class Filesystem {
     }
 
     // TODO: write docs by your own hands
-    public static function get_uploads_path(): string {
-        return Config::STORAGE_BASE_DIR . Config::STORAGE_UPLOADS_DIR . $upload_id;
+    public static function get_upload_path(int $upload_id): string {
+        return Config::STORAGE_BASE_DIR . Config::STORAGE_UPLOADS_DIR . $upload_id . '/';
     }
 
     public static function create_upload(int $user_id, string $file_name, int $chunk_count): int {
@@ -470,7 +470,7 @@ class Filesystem {
         );
 
         // Creating upload dir
-        $upload_path = self::get_uploads_path() . $upload_id;
+        $upload_path = self::get_upload_path($upload_id);
 
         if (!mkdir($upload_path))
             Response::error("Unable to create directory \"$upload_path\" for upload with ID $upload_id");
@@ -491,11 +491,17 @@ class Filesystem {
     }
 
     public static function delete_upload(int $upload_id): void {
-       Database::execute(
+        // Deleting upload in DB
+        Database::execute(
             'DELETE FROM uploads WHERE id = ?',
             'i',
             $upload_id
         );
+
+        // Deleting upload dir
+        $upload_path = self::get_upload_path($upload_id);
+
+        self::delete_host_directory($upload_path);
     }
 
     public static function delete_host_directory(string $path): void {
@@ -514,7 +520,7 @@ class Filesystem {
                 self::delete_host_directory($objectPath);
             }
             else {
-                unlink ($objectPath);
+                unlink($objectPath);
             }
         }
 
